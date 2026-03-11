@@ -1,0 +1,9 @@
+{
+  "test": "canApply",
+  "equation": {
+    "left": ["RED", "WHITE"],
+    "right": ["BLUE", "GREEN"]
+  },
+  "playerPebbles": { "BLUE": 1, "GREEN": 1 },
+  "bankPebbles":   { "RED": 1, "WHITE": 1 }
+}
