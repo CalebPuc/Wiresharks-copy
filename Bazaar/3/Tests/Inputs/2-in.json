@@ -1,0 +1,7 @@
+[
+  [["red"], ["blue"]],
+  [["green"], ["white"]],
+  [["yellow"], ["red"]]
+]
+["red", "green", "yellow"]
+["blue", "blue", "white", "white", "red", "red"]
