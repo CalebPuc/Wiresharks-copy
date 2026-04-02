@@ -4,10 +4,10 @@ Conversations
 Terms · Privacy · Programme Policies
 Last account activity: 14 minutes ago
 Details
-# Bazaar — Milestone 2 - Ethan Pucylowski and Caleb Pucylowski
+# Bazaar — Milestone 4 - Ethan Pucylowski and Caleb Pucylowski
 
-This milestone implements the core data representations for the Bazaar board game, along with a game-state design memo and a full suite of unit and file-driven tests.
-
+This milestone introduces a player protocol (`Planning/player-protocol.md`)
+describing how the referee interacts with player components during gameplay.
 ---
 
 ## Source Files
@@ -64,9 +64,58 @@ Each class with file-driven tests reads numbered JSON pairs from `src/Tests/<Cla
 `Planning/game-state.md` describes the data a referee needs to manage a game in progress and lists the 10 functions it must provide: setup, grant turn, draw pebble, validate/apply exchange, validate/apply card purchase, replenish visible cards, eliminate player, query scores, detect end conditions, and announce outcome.
 ---
 
+## Player Components
+
+This milestone introduces a player module that computes turn decisions using
+a bounded search over exchanges and card purchases.
+
+### `Strategy.java`
+Entry point for computing a player's turn.
+
+- Takes a `TurnState` and `Equations`
+- Explores possible exchange sequences (BFS)
+- Explores all valid card purchase sequences
+- Generates candidate turns
+- Selects the best turn using tie-breaking rules
+
+---
+
+### `SearchNode.java`
+Represents a state in the search space.
+
+- Stores wallet, exchange sequence, remaining cards, and depth
+- Supports applying exchanges and purchases to generate new states
+- Ensures validity of transitions (sufficient pebbles, valid bank state)
+
+---
+
+### `CandidateSelector.java`
+Selects the best turn from a set of candidates.
+
+- Maximizes either points or number of cards
+- Applies tie-breaking rules:
+  - points (if maximizing cards)
+  - remaining pebbles
+  - wallet ordering
+  - card sequence ordering
+  - number of exchanges
+  - exchange sequence ordering
+
+---
+
+### `WalletManager.java`
+Utility class for managing pebble wallets.
+
+- Add/remove pebbles
+- Check affordability
+- Copy and merge wallets
+- Count pebbles
+- Compare wallets lexicographically
+
 ## Running Tests
 
 ```bash
 cd Bazzar
 mvn test
 ```
+
