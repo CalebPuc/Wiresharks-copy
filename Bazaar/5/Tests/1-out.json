@@ -1,0 +1,9 @@
+[
+  [],
+  [
+    { "pebbles": ["RED","RED","BLUE","BLUE","WHITE"], "star": false },
+    { "pebbles": ["WHITE","GREEN","BLUE","RED","RED"], "star": true }
+  ],
+  3,
+  {}
+]
