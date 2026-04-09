@@ -1,4 +1,4 @@
-package referee;
+package common;
 
 import common.Cards.PebbleColor;
 
