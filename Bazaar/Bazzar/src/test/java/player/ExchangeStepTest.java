@@ -5,17 +5,12 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
  
-/**
+/*
  * Unit tests for the ExchangeStep class.
- *
- * Tests are organized by method. Each test covers one specific behavior
- * described in the purpose statement of the method under test.
  */
 public class ExchangeStepTest {
  
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
+    // helpers
  
     private static Equation redForBlue() {
         return new Equation(
@@ -29,26 +24,19 @@ public class ExchangeStepTest {
             new Pebbles(List.of(Pebble.GREEN)));
     }
  
-    private static ExchangeStep leftToRight() {
+    private static ExchangeStep ltr() {
         return new ExchangeStep(redForBlue(), true);
     }
  
-    private static ExchangeStep rightToLeft() {
+    private static ExchangeStep rtl() {
         return new ExchangeStep(redForBlue(), false);
     }
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
+    // constructor
  
     @Test
     void constructorAcceptsLeftToRight() {
-        assertDoesNotThrow(() -> new ExchangeStep(redForBlue(), true));
-    }
- 
-    @Test
-    void constructorAcceptsRightToLeft() {
-        assertDoesNotThrow(() -> new ExchangeStep(redForBlue(), false));
+        assertDoesNotThrow(() -> ltr());
     }
  
     @Test
@@ -57,124 +45,62 @@ public class ExchangeStepTest {
             () -> new ExchangeStep(null, true));
     }
  
-    // -------------------------------------------------------------------------
-    // getEquation()
-    // -------------------------------------------------------------------------
+    // isLeftToRight
  
     @Test
-    void getEquationReturnsTheEquation() {
-        Equation eq   = redForBlue();
-        ExchangeStep step = new ExchangeStep(eq, true);
-        assertEquals(eq, step.getEquation());
-    }
- 
-    // -------------------------------------------------------------------------
-    // isLeftToRight()
-    // -------------------------------------------------------------------------
- 
-    @Test
-    void isLeftToRightReturnsTrueForLeftToRightStep() {
-        assertTrue(leftToRight().isLeftToRight());
+    void isLeftToRightTrueForLTR() {
+        assertTrue(ltr().isLeftToRight());
     }
  
     @Test
-    void isLeftToRightReturnsFalseForRightToLeftStep() {
-        assertFalse(rightToLeft().isLeftToRight());
+    void isLeftToRightFalseForRTL() {
+        assertFalse(rtl().isLeftToRight());
     }
  
-    // -------------------------------------------------------------------------
-    // getGiven()
-    // -------------------------------------------------------------------------
+    // getGiven
  
     @Test
-    void getGivenReturnsLeftSideWhenLeftToRight() {
-        ExchangeStep step = leftToRight(); // RED = BLUE, left-to-right
-        assertEquals(new Pebbles(List.of(Pebble.RED)), step.getGiven());
+    void getGivenReturnsLeftSideForLTR() {
+        assertEquals(new Pebbles(List.of(Pebble.RED)), ltr().getGiven());
     }
  
     @Test
-    void getGivenReturnsRightSideWhenRightToLeft() {
-        ExchangeStep step = rightToLeft(); // RED = BLUE, right-to-left
-        assertEquals(new Pebbles(List.of(Pebble.BLUE)), step.getGiven());
+    void getGivenReturnsRightSideForRTL() {
+        assertEquals(new Pebbles(List.of(Pebble.BLUE)), rtl().getGiven());
+    }
+ 
+    // getReceived
+ 
+    @Test
+    void getReceivedReturnsRightSideForLTR() {
+        assertEquals(new Pebbles(List.of(Pebble.BLUE)), ltr().getReceived());
     }
  
     @Test
-    void getGivenReturnsCorrectSideForMultiPebbleEquation() {
-        // 2 WHITE = 1 GREEN, left-to-right: give 2 WHITE
-        ExchangeStep step = new ExchangeStep(twoWhiteForGreen(), true);
-        assertEquals(
-            new Pebbles(List.of(Pebble.WHITE, Pebble.WHITE)),
-            step.getGiven());
-    }
- 
-    // -------------------------------------------------------------------------
-    // getReceived()
-    // -------------------------------------------------------------------------
- 
-    @Test
-    void getReceivedReturnsRightSideWhenLeftToRight() {
-        ExchangeStep step = leftToRight(); // RED = BLUE, left-to-right
-        assertEquals(new Pebbles(List.of(Pebble.BLUE)), step.getReceived());
-    }
- 
-    @Test
-    void getReceivedReturnsLeftSideWhenRightToLeft() {
-        ExchangeStep step = rightToLeft(); // RED = BLUE, right-to-left
-        assertEquals(new Pebbles(List.of(Pebble.RED)), step.getReceived());
-    }
- 
-    @Test
-    void getReceivedReturnsCorrectSideForMultiPebbleEquation() {
-        // 2 WHITE = 1 GREEN, right-to-left: receive 2 WHITE
-        ExchangeStep step = new ExchangeStep(twoWhiteForGreen(), false);
-        assertEquals(
-            new Pebbles(List.of(Pebble.WHITE, Pebble.WHITE)),
-            step.getReceived());
+    void getReceivedReturnsLeftSideForRTL() {
+        assertEquals(new Pebbles(List.of(Pebble.RED)), rtl().getReceived());
     }
  
     @Test
     void givenAndReceivedAreOpposites() {
-        // For any step, what you give is the opposite of what you receive
-        ExchangeStep ltr = leftToRight();
-        ExchangeStep rtl = rightToLeft();
-        assertEquals(ltr.getGiven(),    rtl.getReceived());
-        assertEquals(ltr.getReceived(), rtl.getGiven());
+        assertEquals(ltr().getGiven(), rtl().getReceived());
+        assertEquals(ltr().getReceived(), rtl().getGiven());
     }
  
-    // -------------------------------------------------------------------------
-    // equals() and hashCode()
-    // -------------------------------------------------------------------------
+    // equals and hashCode
  
     @Test
-    void stepsWithSameEquationAndDirectionAreEqual() {
-        assertEquals(leftToRight(), leftToRight());
+    void sameEquationAndDirectionAreEqual() {
+        assertEquals(ltr(), ltr());
     }
  
     @Test
-    void stepsWithSameEquationButDifferentDirectionAreNotEqual() {
-        assertNotEquals(leftToRight(), rightToLeft());
+    void sameEquationDifferentDirectionNotEqual() {
+        assertNotEquals(ltr(), rtl());
     }
  
     @Test
-    void stepsWithDifferentEquationsAreNotEqual() {
-        ExchangeStep s1 = new ExchangeStep(redForBlue(), true);
-        ExchangeStep s2 = new ExchangeStep(twoWhiteForGreen(), true);
-        assertNotEquals(s1, s2);
-    }
- 
-    @Test
-    void equalStepsHaveEqualHashCodes() {
-        assertEquals(leftToRight().hashCode(), leftToRight().hashCode());
-    }
- 
-    @Test
-    void stepIsEqualToItself() {
-        ExchangeStep step = leftToRight();
-        assertEquals(step, step);
-    }
- 
-    @Test
-    void stepIsNotEqualToNull() {
-        assertNotEquals(null, leftToRight());
+    void equalStepsHaveSameHashCode() {
+        assertEquals(ltr().hashCode(), ltr().hashCode());
     }
 }

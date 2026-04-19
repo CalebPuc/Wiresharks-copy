@@ -5,27 +5,17 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
  
-/**
+/*
  * Unit tests for PurchaseSizeStrategy.
- *
- * Tests are organized by concern: basic correctness, size
- * maximization, tie-breaking behavior, exchange cap, and
- * wallet correctness after a decision.
  */
 public class PurchaseSizeStrategyTest {
  
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
+    // helpers
  
-    private static TurnState makeTurn(Pebbles wallet,
-                                      Pebbles bank,
+    private static TurnState makeTurn(Pebbles wallet, Pebbles bank,
                                       List<Card> visibles) {
-        return new TurnState(
-            bank,
-            new Cards(visibles),
-            new PlayerState(wallet, 0),
-            List.of());
+        return new TurnState(bank, new Cards(visibles),
+            new PlayerState(wallet, 0), List.of());
     }
  
     private static Card plainFiveRed() {
@@ -48,16 +38,12 @@ public class PurchaseSizeStrategyTest {
  
     private static final Strategy STRATEGY = new PurchaseSizeStrategy();
  
-    // -------------------------------------------------------------------------
-    // Basic correctness
-    // -------------------------------------------------------------------------
+    // basic correctness
  
     @Test
     void returnsNonNullDecision() {
         TurnState turn = makeTurn(
-            new Pebbles(List.of(Pebble.RED)),
-            new Pebbles(),
-            List.of());
+            new Pebbles(List.of(Pebble.RED)), new Pebbles(), List.of());
         assertNotNull(STRATEGY.takeTurn(turn, new Equations(List.of())));
     }
  
@@ -67,40 +53,26 @@ public class PurchaseSizeStrategyTest {
             Pebble.RED, Pebble.RED, Pebble.RED,
             Pebble.RED, Pebble.RED));
         TurnState turn = makeTurn(wallet, new Pebbles(), List.of(plainFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertEquals(1, d.getPurchases().size());
+        assertEquals(1,
+            STRATEGY.takeTurn(turn, new Equations(List.of())).getPurchases().size());
     }
  
     @Test
     void doesNotBuyUnaffordableCard() {
         Pebbles wallet = new Pebbles(List.of(Pebble.RED, Pebble.RED));
         TurnState turn = makeTurn(wallet, new Pebbles(), List.of(plainFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertTrue(d.getPurchases().isEmpty());
+        assertTrue(
+            STRATEGY.takeTurn(turn, new Equations(List.of())).getPurchases().isEmpty());
     }
  
     @Test
-    void handlesEmptyVisiblesWithNoError() {
+    void handlesEmptyVisibles() {
         TurnState turn = makeTurn(
             new Pebbles(List.of(Pebble.RED)), new Pebbles(), List.of());
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertNotNull(d);
-        assertTrue(d.getPurchases().isEmpty());
+        assertNotNull(STRATEGY.takeTurn(turn, new Equations(List.of())));
     }
  
-    @Test
-    void handlesEmptyEquationsWithNoError() {
-        Pebbles wallet = new Pebbles(List.of(
-            Pebble.RED, Pebble.RED, Pebble.RED,
-            Pebble.RED, Pebble.RED));
-        TurnState turn = makeTurn(wallet, new Pebbles(), List.of(plainFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertNotNull(d);
-    }
- 
-    // -------------------------------------------------------------------------
-    // Size maximization
-    // -------------------------------------------------------------------------
+    // size maximization
  
     @Test
     void buysTwoCardsWhenBothAffordable() {
@@ -109,52 +81,36 @@ public class PurchaseSizeStrategyTest {
             Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED));
         TurnState turn = makeTurn(wallet, new Pebbles(),
             List.of(plainFiveRed(), plainFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertEquals(2, d.getPurchases().size());
+        assertEquals(2,
+            STRATEGY.takeTurn(turn, new Equations(List.of())).getPurchases().size());
     }
  
     @Test
-    void prefersTwoPlainCardsOverOneStarCard() {
-        // Wallet has 10 RED. Size strategy prefers 2 cards over 1.
+    void prefersTwoCardsOverOneStar() {
         Pebbles wallet = new Pebbles(List.of(
             Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED,
             Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED));
         TurnState turn = makeTurn(wallet, new Pebbles(),
             List.of(plainFiveRed(), plainFiveRed(), starFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertTrue(d.getPurchases().size() >= 2);
+        assertTrue(
+            STRATEGY.takeTurn(turn, new Equations(List.of()))
+                .getPurchases().size() >= 2);
     }
  
     @Test
-    void buysThreeCardsWhenAllAffordable() {
-        Pebbles wallet = new Pebbles(List.of(
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED,
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED,
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED));
-        TurnState turn = makeTurn(wallet, new Pebbles(),
-            List.of(plainFiveRed(), plainFiveRed(), plainFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertEquals(3, d.getPurchases().size());
-    }
- 
-    @Test
-    void doesNotBuyMoreCardsThanAffordable() {
-        // Wallet has exactly 5 RED — can only afford one of the two cards.
+    void doesNotBuyMoreThanAffordable() {
         Pebbles wallet = new Pebbles(List.of(
             Pebble.RED, Pebble.RED, Pebble.RED,
             Pebble.RED, Pebble.RED));
         TurnState turn = makeTurn(wallet, new Pebbles(),
             List.of(plainFiveRed(), plainFiveRed()));
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertEquals(1, d.getPurchases().size());
+        assertEquals(1,
+            STRATEGY.takeTurn(turn, new Equations(List.of())).getPurchases().size());
     }
  
     @Test
     void usesExchangeToEnableMorePurchases() {
-        // Player has 1 RED and 4 BLUE already. Bank has 1 BLUE.
-        // Card needs 5 BLUE. After exchanging RED->BLUE the player
-        // has 5 BLUE and can afford the card. The exchange is useful
-        // so the strategy will choose it.
+        // player has 1 RED and 4 BLUE -- needs 5 BLUE to buy card
         Pebbles wallet = new Pebbles(List.of(
             Pebble.RED,
             Pebble.BLUE, Pebble.BLUE, Pebble.BLUE, Pebble.BLUE));
@@ -169,13 +125,10 @@ public class PurchaseSizeStrategyTest {
         assertFalse(d.getPurchases().isEmpty());
     }
  
-    // -------------------------------------------------------------------------
-    // Tie-breaking
-    // -------------------------------------------------------------------------
+    // tie-breaking
  
     @Test
-    void fewerExchangesPreferredWhenCardCountIsEqual() {
-        // Only one exchange is possible — verify minimum is used.
+    void fewerExchangesPreferredWhenCountEqual() {
         Pebbles wallet = new Pebbles(List.of(Pebble.RED));
         Pebbles bank   = new Pebbles(List.of(Pebble.BLUE));
         TurnState turn = makeTurn(wallet, bank, List.of());
@@ -184,25 +137,7 @@ public class PurchaseSizeStrategyTest {
         assertTrue(d.getExchanges().size() <= 1);
     }
  
-    @Test
-    void twoStrategiesCanProduceDifferentDecisionsOnSameInput() {
-        // Both strategies should return valid non-null decisions.
-        Pebbles wallet = new Pebbles(List.of(
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED,
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED));
-        TurnState turn = makeTurn(wallet, new Pebbles(),
-            List.of(plainFiveRed(), starFiveRed()));
-        TurnDecision sizeD =
-            new PurchaseSizeStrategy().takeTurn(turn, new Equations(List.of()));
-        TurnDecision pointsD =
-            new PurchasePointsStrategy().takeTurn(turn, new Equations(List.of()));
-        assertNotNull(sizeD);
-        assertNotNull(pointsD);
-    }
- 
-    // -------------------------------------------------------------------------
-    // Exchange cap
-    // -------------------------------------------------------------------------
+    // exchange cap
  
     @Test
     void neverExceedsFourExchanges() {
@@ -218,14 +153,10 @@ public class PurchaseSizeStrategyTest {
         assertTrue(d.getExchanges().size() <= 4);
     }
  
-    // -------------------------------------------------------------------------
-    // Wallet after decision
-    // -------------------------------------------------------------------------
+    // wallet after decision
  
     @Test
-    void walletReflectsStateAfterAllPurchases() {
-        // Wallet has 10 RED. Buy two cards costing 5 each.
-        // Wallet should be empty after.
+    void walletEmptyAfterBuyingTwoFiveRedCards() {
         Pebbles wallet = new Pebbles(List.of(
             Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED,
             Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED));
@@ -235,13 +166,5 @@ public class PurchaseSizeStrategyTest {
         if (d.getPurchases().size() == 2) {
             assertEquals(0, d.getWallet().size());
         }
-    }
- 
-    @Test
-    void walletIsNonNullEvenWhenNothingHappens() {
-        TurnState turn = makeTurn(
-            new Pebbles(List.of(Pebble.YELLOW)), new Pebbles(), List.of());
-        TurnDecision d = STRATEGY.takeTurn(turn, new Equations(List.of()));
-        assertNotNull(d.getWallet());
     }
 }

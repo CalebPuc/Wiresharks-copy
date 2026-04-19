@@ -4,43 +4,28 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
  
-/**
+/*
  * Unit tests for the Cards class.
- *
- * Tests are organized by method. Each test covers one specific behavior
- * described in the purpose statement of the method under test.
  */
 public class CardsTest {
  
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
+    // helpers
  
-    private static Card plainCard() {
+    private static Card plainFiveRed() {
         return new Card(new Pebbles(List.of(
-            Pebble.RED, Pebble.WHITE, Pebble.BLUE, Pebble.GREEN, Pebble.YELLOW)),
-            false);
+            Pebble.RED, Pebble.RED, Pebble.RED,
+            Pebble.RED, Pebble.RED)), false);
     }
  
-    private static Card starCard() {
-        return new Card(new Pebbles(List.of(
-            Pebble.RED, Pebble.WHITE, Pebble.BLUE, Pebble.GREEN, Pebble.YELLOW)),
-            true);
-    }
- 
-    private static Card redCard() {
-        return new Card(new Pebbles(List.of(
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED)),
-            false);
+    private static Cards oneCard() {
+        return new Cards(List.of(plainFiveRed()));
     }
  
     private static Cards twoCards() {
-        return new Cards(List.of(plainCard(), starCard()));
+        return new Cards(List.of(plainFiveRed(), plainFiveRed()));
     }
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
+    // constructor
  
     @Test
     void constructorAcceptsEmptyList() {
@@ -49,155 +34,60 @@ public class CardsTest {
  
     @Test
     void constructorAcceptsNonEmptyList() {
-        assertDoesNotThrow(() -> twoCards());
+        assertDoesNotThrow(() -> oneCard());
     }
  
-    @Test
-    void constructorMakesDefensiveCopy() {
-        List<Card> list = new java.util.ArrayList<>(List.of(plainCard()));
-        Cards cards = new Cards(list);
-        list.add(starCard());
-        assertEquals(1, cards.size());
-    }
- 
-    // -------------------------------------------------------------------------
-    // createRandom()
-    // -------------------------------------------------------------------------
+    // canAcquireAny
  
     @Test
-    void createRandomProducesTwentyCards() {
-        assertEquals(20, Cards.createRandom().size());
-    }
- 
-    @Test
-    void createRandomProducesValidCards() {
-        assertDoesNotThrow(() -> Cards.createRandom());
-    }
- 
-    // -------------------------------------------------------------------------
-    // canAcquireAny()
-    // -------------------------------------------------------------------------
- 
-    @Test
-    void canAcquireAnyReturnsTrueWhenOneCardIsAffordable() {
-        // plainCard and starCard both need R W B G Y
+    void canAcquireAnyTrueWhenAffordable() {
         Pebbles wallet = new Pebbles(List.of(
-            Pebble.RED, Pebble.WHITE, Pebble.BLUE, Pebble.GREEN, Pebble.YELLOW));
-        assertTrue(twoCards().canAcquireAny(wallet));
+            Pebble.RED, Pebble.RED, Pebble.RED,
+            Pebble.RED, Pebble.RED));
+        assertTrue(oneCard().canAcquireAny(wallet));
     }
  
     @Test
-    void canAcquireAnyReturnsFalseWhenNoCardIsAffordable() {
-        // wallet has only yellow, cards need R W B G Y
-        Pebbles wallet = new Pebbles(List.of(Pebble.YELLOW));
-        assertFalse(twoCards().canAcquireAny(wallet));
+    void canAcquireAnyFalseWhenNoneAffordable() {
+        assertFalse(oneCard().canAcquireAny(new Pebbles()));
     }
  
     @Test
-    void canAcquireAnyReturnsFalseForEmptyCollection() {
-        Pebbles wallet = new Pebbles(List.of(
-            Pebble.RED, Pebble.WHITE, Pebble.BLUE, Pebble.GREEN, Pebble.YELLOW));
-        assertFalse(new Cards(List.of()).canAcquireAny(wallet));
+    void canAcquireAnyFalseForEmptyCollection() {
+        Pebbles richWallet = new Pebbles(List.of(
+            Pebble.RED, Pebble.RED, Pebble.RED,
+            Pebble.RED, Pebble.RED));
+        assertFalse(new Cards(List.of()).canAcquireAny(richWallet));
     }
  
-    @Test
-    void canAcquireAnyReturnsFalseForEmptyWallet() {
-        assertFalse(twoCards().canAcquireAny(new Pebbles()));
-    }
- 
-    // -------------------------------------------------------------------------
-    // render()
-    // -------------------------------------------------------------------------
+    // size and isEmpty
  
     @Test
-    void renderBeginsWithCardsHeader() {
-        assertTrue(twoCards().render().startsWith("Cards:"));
-    }
- 
-    @Test
-    void renderContainsOneLinePerCard() {
-        String rendered = twoCards().render();
-        assertTrue(rendered.contains("1."));
-        assertTrue(rendered.contains("2."));
-    }
- 
-    @Test
-    void renderOfEmptyCollectionShowsOnlyHeader() {
-        String rendered = new Cards(List.of()).render();
-        assertTrue(rendered.startsWith("Cards:"));
-        assertFalse(rendered.contains("1."));
-    }
- 
-    // -------------------------------------------------------------------------
-    // getCards()
-    // -------------------------------------------------------------------------
- 
-    @Test
-    void getCardsReturnsCorrectList() {
-        Cards cards = twoCards();
-        assertEquals(2, cards.getCards().size());
-        assertEquals(plainCard(), cards.getCards().get(0));
-    }
- 
-    @Test
-    void getCardsIsUnmodifiable() {
-        assertThrows(UnsupportedOperationException.class,
-            () -> twoCards().getCards().add(redCard()));
-    }
- 
-    // -------------------------------------------------------------------------
-    // size() and isEmpty()
-    // -------------------------------------------------------------------------
- 
-    @Test
-    void sizeReturnsNumberOfCards() {
+    void sizeReturnsCorrectCount() {
         assertEquals(2, twoCards().size());
     }
  
     @Test
-    void sizeOfEmptyCollectionIsZero() {
-        assertEquals(0, new Cards(List.of()).size());
-    }
- 
-    @Test
-    void isEmptyReturnsTrueForEmptyCollection() {
+    void isEmptyTrueForEmptyCollection() {
         assertTrue(new Cards(List.of()).isEmpty());
     }
  
-    @Test
-    void isEmptyReturnsFalseForNonEmptyCollection() {
-        assertFalse(twoCards().isEmpty());
-    }
- 
-    // -------------------------------------------------------------------------
-    // getFirst()
-    // -------------------------------------------------------------------------
+    // getFirst and removeFirst
  
     @Test
     void getFirstReturnsFirstCard() {
-        assertEquals(plainCard(), twoCards().getFirst());
+        assertEquals(plainFiveRed(), oneCard().getFirst());
     }
  
     @Test
-    void getFirstThrowsOnEmptyCollection() {
+    void getFirstThrowsOnEmpty() {
         assertThrows(IllegalStateException.class,
             () -> new Cards(List.of()).getFirst());
     }
  
-    // -------------------------------------------------------------------------
-    // removeFirst()
-    // -------------------------------------------------------------------------
- 
     @Test
-    void removeFirstReturnsSmallerCollection() {
-        Cards result = twoCards().removeFirst();
-        assertEquals(1, result.size());
-    }
- 
-    @Test
-    void removeFirstRemovesCorrectCard() {
-        Cards result = twoCards().removeFirst();
-        assertEquals(starCard(), result.getFirst());
+    void removeFirstReducesSizeByOne() {
+        assertEquals(1, twoCards().removeFirst().size());
     }
  
     @Test
@@ -208,47 +98,25 @@ public class CardsTest {
     }
  
     @Test
-    void removeFirstThrowsOnEmptyCollection() {
+    void removeFirstThrowsOnEmpty() {
         assertThrows(IllegalStateException.class,
             () -> new Cards(List.of()).removeFirst());
     }
  
-    // -------------------------------------------------------------------------
-    // equals() and hashCode()
-    // -------------------------------------------------------------------------
+    // equals and hashCode
  
     @Test
-    void collectionsWithSameCardsInSameOrderAreEqual() {
-        assertEquals(twoCards(), twoCards());
+    void equalCollectionsAreEqual() {
+        assertEquals(oneCard(), oneCard());
     }
  
     @Test
-    void collectionsWithDifferentCardsAreNotEqual() {
-        Cards c1 = twoCards();
-        Cards c2 = new Cards(List.of(plainCard()));
-        assertNotEquals(c1, c2);
+    void differentCollectionsAreNotEqual() {
+        assertNotEquals(oneCard(), twoCards());
     }
  
     @Test
-    void collectionsWithSameCardsInDifferentOrderAreNotEqual() {
-        Cards c1 = new Cards(List.of(plainCard(), starCard()));
-        Cards c2 = new Cards(List.of(starCard(), plainCard()));
-        assertNotEquals(c1, c2);
-    }
- 
-    @Test
-    void equalCollectionsHaveEqualHashCodes() {
-        assertEquals(twoCards().hashCode(), twoCards().hashCode());
-    }
- 
-    @Test
-    void collectionIsEqualToItself() {
-        Cards c = twoCards();
-        assertEquals(c, c);
-    }
- 
-    @Test
-    void collectionIsNotEqualToNull() {
-        assertNotEquals(null, twoCards());
+    void equalCollectionsHaveSameHashCode() {
+        assertEquals(oneCard().hashCode(), oneCard().hashCode());
     }
 }

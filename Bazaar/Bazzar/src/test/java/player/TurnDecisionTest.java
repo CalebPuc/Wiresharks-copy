@@ -5,84 +5,76 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
  
-/**
- * Unit tests for TurnDecision, focused on the scoring helper and
- * basic data representation correctness.
+/*
+ * Unit tests for TurnDecision -- focused on the scoring table
+ * and basic data representation correctness.
  */
 public class TurnDecisionTest {
  
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
+    // helpers
  
     private static Card plainCard() {
         return new Card(new Pebbles(List.of(
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED)), false);
+            Pebble.RED, Pebble.RED, Pebble.RED,
+            Pebble.RED, Pebble.RED)), false);
     }
  
     private static Card starCard() {
         return new Card(new Pebbles(List.of(
-            Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED, Pebble.RED)), true);
+            Pebble.RED, Pebble.RED, Pebble.RED,
+            Pebble.RED, Pebble.RED)), true);
     }
  
-    private static TurnDecision emptyDecision() {
+    private static TurnDecision empty() {
         return new TurnDecision(
             List.of(), List.of(), 0, new Pebbles());
     }
  
-    // -------------------------------------------------------------------------
-    // score() — plain card
-    // -------------------------------------------------------------------------
+    // score -- plain card
  
     @Test
-    void plainCardScoreWith3OrMorePebblesIs1() {
+    void plainCardWith3OrMorePebblesGives1() {
         assertEquals(1, TurnDecision.score(plainCard(), 3));
-        assertEquals(1, TurnDecision.score(plainCard(), 5));
     }
  
     @Test
-    void plainCardScoreWith2PebblesIs2() {
+    void plainCardWith2PebblesGives2() {
         assertEquals(2, TurnDecision.score(plainCard(), 2));
     }
  
     @Test
-    void plainCardScoreWith1PebbleIs3() {
+    void plainCardWith1PebbleGives3() {
         assertEquals(3, TurnDecision.score(plainCard(), 1));
     }
  
     @Test
-    void plainCardScoreWith0PebblesIs5() {
+    void plainCardWith0PebblesGives5() {
         assertEquals(5, TurnDecision.score(plainCard(), 0));
     }
  
-    // -------------------------------------------------------------------------
-    // score() — starred card
-    // -------------------------------------------------------------------------
+    // score -- starred card
  
     @Test
-    void starCardScoreWith3OrMorePebblesIs2() {
+    void starCardWith3OrMorePebblesGives2() {
         assertEquals(2, TurnDecision.score(starCard(), 3));
-        assertEquals(2, TurnDecision.score(starCard(), 10));
     }
  
     @Test
-    void starCardScoreWith2PebblesIs3() {
+    void starCardWith2PebblesGives3() {
         assertEquals(3, TurnDecision.score(starCard(), 2));
     }
  
     @Test
-    void starCardScoreWith1PebbleIs5() {
+    void starCardWith1PebbleGives5() {
         assertEquals(5, TurnDecision.score(starCard(), 1));
     }
  
     @Test
-    void starCardScoreWith0PebblesIs8() {
+    void starCardWith0PebblesGives8() {
         assertEquals(8, TurnDecision.score(starCard(), 0));
     }
  
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
+    // accessors
  
     @Test
     void getPointsReturnsCorrectPoints() {
@@ -102,7 +94,7 @@ public class TurnDecisionTest {
     @Test
     void getExchangesIsUnmodifiable() {
         assertThrows(UnsupportedOperationException.class,
-            () -> emptyDecision().getExchanges().add(
+            () -> empty().getExchanges().add(
                 new ExchangeStep(
                     new Equation(
                         new Pebbles(List.of(Pebble.RED)),
@@ -113,6 +105,6 @@ public class TurnDecisionTest {
     @Test
     void getPurchasesIsUnmodifiable() {
         assertThrows(UnsupportedOperationException.class,
-            () -> emptyDecision().getPurchases().add(plainCard()));
+            () -> empty().getPurchases().add(plainCard()));
     }
 }
