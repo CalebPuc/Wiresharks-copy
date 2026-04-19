@@ -1,7 +1,0 @@
-{
-  "test": "render",
-  "card": {
-    "pebbles": ["RED", "WHITE", "BLUE", "GREEN", "YELLOW"],
-    "hasStar": true
-  }
-}

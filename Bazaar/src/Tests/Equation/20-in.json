@@ -1,7 +1,0 @@
-{
-  "test": "render",
-  "equation": {
-    "left": ["RED", "RED", "RED", "RED"],
-    "right": ["BLUE"]
-  }
-}

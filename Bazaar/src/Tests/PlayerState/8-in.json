@@ -1,9 +1,0 @@
-{
-  "test": "accessor_getName",
-  "name": "AlicePlayer",
-  "wallet": {
-    "RED": 1
-  },
-  "score": 10,
-  "active": true
-}

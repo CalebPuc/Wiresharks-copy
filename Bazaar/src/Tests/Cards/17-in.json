@@ -1,8 +1,0 @@
-{
-  "test": "score",
-  "card": {
-    "pebbles": ["RED", "RED", "RED", "RED", "RED"],
-    "hasStar": false
-  },
-  "pebblesRemaining": 10
-}

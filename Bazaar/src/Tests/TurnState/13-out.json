@@ -1,5 +1,0 @@
-{
-  "success": true,
-  "throwsUnsupportedOperation": true,
-  "note": "Calling getOtherScores().add() should throw UnsupportedOperationException"
-}

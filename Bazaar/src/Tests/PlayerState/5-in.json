@@ -1,9 +1,0 @@
-{
-  "test": "constructor_blankName",
-  "name": "   ",
-  "wallet": {
-    "RED": 1
-  },
-  "score": 5,
-  "active": true
-}

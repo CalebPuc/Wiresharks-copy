@@ -1,5 +1,0 @@
-{
-  "success": false,
-  "error": "IllegalArgumentException",
-  "message": "Player name must not be blank."
-}

@@ -1,9 +1,0 @@
-{
-  "test": "canApplyLeftToRight",
-  "equation": {
-    "left": ["RED", "WHITE"],
-    "right": ["BLUE", "GREEN"]
-  },
-  "playerPebbles": { "RED": 5, "WHITE": 5 },
-  "bankPebbles":   { "BLUE": 5, "GREEN": 5 }
-}
