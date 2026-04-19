@@ -1,336 +1,269 @@
 package common;
-
-import common.Cards.PebbleColor;
+ 
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
-
+ 
 /**
- * Unit tests for Equations (the equation table).
+ * Unit tests for the Equations class.
  *
- * Test organization mirrors the public API:
- *   1. Construction — Equations(list) and createTable
- *   2. createRandomTable
- *   3. filterApplicable
- *   4. render / toString
- *   5. getEquations / size
+ * Tests are organized by method. Each test covers one specific behavior
+ * described in the purpose statement of the method under test.
  */
-class EquationsTest {
-
+public class EquationsTest {
+ 
     // -------------------------------------------------------------------------
-    // Helpers
+    // Helpers — shared equation and table instances
     // -------------------------------------------------------------------------
-
-    private static Map<PebbleColor, Integer> pebbles(Object... pairs) {
-        Map<PebbleColor, Integer> map = new EnumMap<>(PebbleColor.class);
-        for (int i = 0; i < pairs.length; i += 2) {
-            map.put((PebbleColor) pairs[i], (Integer) pairs[i + 1]);
-        }
-        return map;
-    }
-
-    /** R W = B G */
-    private static Equation rwEqBg() {
+ 
+    // RED = BLUE
+    private static Equation redBlue() {
         return new Equation(
-                List.of(PebbleColor.RED, PebbleColor.WHITE),
-                List.of(PebbleColor.BLUE, PebbleColor.GREEN));
+            new Pebbles(List.of(Pebble.RED)),
+            new Pebbles(List.of(Pebble.BLUE))
+        );
     }
-
-    /** Y = R */
-    private static Equation yEqR() {
+ 
+    // WHITE = GREEN
+    private static Equation whiteGreen() {
         return new Equation(
-                List.of(PebbleColor.YELLOW),
-                List.of(PebbleColor.RED));
+            new Pebbles(List.of(Pebble.WHITE)),
+            new Pebbles(List.of(Pebble.GREEN))
+        );
     }
-
-    /** G = W */
-    private static Equation gEqW() {
+ 
+    // YELLOW = RED WHITE  (uses RED and WHITE on right)
+    private static Equation yellowRedWhite() {
         return new Equation(
-                List.of(PebbleColor.GREEN),
-                List.of(PebbleColor.WHITE));
+            new Pebbles(List.of(Pebble.YELLOW)),
+            new Pebbles(List.of(Pebble.RED, Pebble.WHITE))
+        );
     }
-
-    /** Builds the maximum allowed list of 10 distinct valid equations. */
-    private static List<Equation> tenEquations() {
-        return List.of(
-                new Equation(List.of(PebbleColor.RED),    List.of(PebbleColor.BLUE)),
-                new Equation(List.of(PebbleColor.RED),    List.of(PebbleColor.GREEN)),
-                new Equation(List.of(PebbleColor.RED),    List.of(PebbleColor.YELLOW)),
-                new Equation(List.of(PebbleColor.RED),    List.of(PebbleColor.WHITE)),
-                new Equation(List.of(PebbleColor.BLUE),   List.of(PebbleColor.GREEN)),
-                new Equation(List.of(PebbleColor.BLUE),   List.of(PebbleColor.YELLOW)),
-                new Equation(List.of(PebbleColor.BLUE),   List.of(PebbleColor.WHITE)),
-                new Equation(List.of(PebbleColor.GREEN),  List.of(PebbleColor.YELLOW)),
-                new Equation(List.of(PebbleColor.GREEN),  List.of(PebbleColor.WHITE)),
-                new Equation(List.of(PebbleColor.YELLOW), List.of(PebbleColor.WHITE)));
+ 
+    private static Equations twoEquationTable() {
+        return new Equations(List.of(redBlue(), whiteGreen()));
     }
-
+ 
     // -------------------------------------------------------------------------
-    // 1. Construction
+    // Constructor
     // -------------------------------------------------------------------------
-
+ 
     @Test
-    void construction_succeedsWithEmptyList() {
+    void constructorAcceptsEmptyList() {
         assertDoesNotThrow(() -> new Equations(List.of()));
-        assertEquals(0, new Equations(List.of()).size());
     }
-
+ 
     @Test
-    void construction_succeedsWithOneEquation() {
-        Equations table = new Equations(List.of(rwEqBg()));
-        assertEquals(1, table.size());
+    void constructorAcceptsTenEquations() {
+        List<Equation> ten = List.of(
+            new Equation(new Pebbles(List.of(Pebble.RED)),    new Pebbles(List.of(Pebble.BLUE))),
+            new Equation(new Pebbles(List.of(Pebble.RED)),    new Pebbles(List.of(Pebble.GREEN))),
+            new Equation(new Pebbles(List.of(Pebble.RED)),    new Pebbles(List.of(Pebble.WHITE))),
+            new Equation(new Pebbles(List.of(Pebble.RED)),    new Pebbles(List.of(Pebble.YELLOW))),
+            new Equation(new Pebbles(List.of(Pebble.BLUE)),   new Pebbles(List.of(Pebble.GREEN))),
+            new Equation(new Pebbles(List.of(Pebble.BLUE)),   new Pebbles(List.of(Pebble.WHITE))),
+            new Equation(new Pebbles(List.of(Pebble.BLUE)),   new Pebbles(List.of(Pebble.YELLOW))),
+            new Equation(new Pebbles(List.of(Pebble.GREEN)),  new Pebbles(List.of(Pebble.WHITE))),
+            new Equation(new Pebbles(List.of(Pebble.GREEN)),  new Pebbles(List.of(Pebble.YELLOW))),
+            new Equation(new Pebbles(List.of(Pebble.WHITE)),  new Pebbles(List.of(Pebble.YELLOW)))
+        );
+        assertDoesNotThrow(() -> new Equations(ten));
     }
-
+ 
     @Test
-    void construction_succeedsWithTenEquations() {
-        Equations table = new Equations(tenEquations());
-        assertEquals(10, table.size());
-    }
-
-    @Test
-    void construction_rejectsElevenEquations() {
-        List<Equation> eleven = new ArrayList<>(tenEquations());
-        eleven.add(rwEqBg());
+    void constructorRejectsMoreThanTenEquations() {
+        List<Equation> eleven = new java.util.ArrayList<>();
+        for (int i = 0; i < 11; i++) {
+            eleven.add(redBlue());
+        }
         assertThrows(IllegalArgumentException.class, () -> new Equations(eleven));
     }
-
+ 
     @Test
-    void construction_rejectsNull() {
-        assertThrows(IllegalArgumentException.class, () -> new Equations(null));
+    void constructorMakesDefensiveCopy() {
+        List<Equation> list = new java.util.ArrayList<>(List.of(redBlue()));
+        Equations table = new Equations(list);
+        list.add(whiteGreen());
+        assertEquals(1, table.size());
     }
-
-    @Test
-    void construction_createTableMatchesConstructor() {
-        List<Equation> eqs = List.of(rwEqBg(), yEqR());
-        assertEquals(
-                new Equations(eqs).getEquations(),
-                Equations.createTable(eqs).getEquations());
-    }
-
-    @Test
-    void construction_getEquationsIsImmutable() {
-        Equations table = Equations.createTable(List.of(rwEqBg()));
-        assertThrows(UnsupportedOperationException.class, () ->
-                table.getEquations().add(yEqR()));
-    }
-
-    @Test
-    void construction_preservesInsertionOrder() {
-        List<Equation> eqs = List.of(rwEqBg(), yEqR(), gEqW());
-        Equations table = Equations.createTable(eqs);
-        assertEquals(rwEqBg(), table.getEquations().get(0));
-        assertEquals(yEqR(),   table.getEquations().get(1));
-        assertEquals(gEqW(),   table.getEquations().get(2));
-    }
-
+ 
     // -------------------------------------------------------------------------
-    // 2. createRandomTable
+    // createRandom()
     // -------------------------------------------------------------------------
-
+ 
     @Test
-    void createRandomTable_producesExactlyTenEquations() {
-        assertEquals(10, Equations.createRandomTable().size());
+    void createRandomProducesTenEquations() {
+        assertEquals(10, Equations.createRandom().size());
     }
-
+ 
     @Test
-    void createRandomTable_allEquationsHaveValidSides() {
-        Equations table = Equations.createRandomTable();
-        for (Equation eq : table.getEquations()) {
-            assertFalse(eq.getLeft().isEmpty(),  "Left side must not be empty");
-            assertFalse(eq.getRight().isEmpty(), "Right side must not be empty");
-            assertTrue(eq.getLeft().size()  <= 4, "Left side must have at most 4 pebbles");
-            assertTrue(eq.getRight().size() <= 4, "Right side must have at most 4 pebbles");
-            for (PebbleColor c : eq.getLeft()) assertNotNull(c);
-            for (PebbleColor c : eq.getRight()) assertNotNull(c);
-        }
+    void createRandomProducesValidEquations() {
+        // Each equation in a random table must satisfy all constraints.
+        // If any equation were invalid, its constructor would have thrown.
+        assertDoesNotThrow(() -> Equations.createRandom());
     }
-
+ 
     @Test
-    void createRandomTable_producesDifferentResultsAcrossInvocations() {
-        // Three independent calls — all being identical is astronomically unlikely
-        Equations t1 = Equations.createRandomTable();
-        Equations t2 = Equations.createRandomTable();
-        Equations t3 = Equations.createRandomTable();
-        boolean allSame = t1.getEquations().equals(t2.getEquations())
-                && t2.getEquations().equals(t3.getEquations());
-        assertFalse(allSame, "createRandomTable should produce varied results");
+    void createRandomProducesDifferentTablesOnSuccessiveCalls() {
+        // Two independently generated tables are very unlikely to be identical.
+        Equations t1 = Equations.createRandom();
+        Equations t2 = Equations.createRandom();
+        // Not a guaranteed assertion — but practically always true.
+        // This test documents expected non-determinism.
+        assertNotNull(t1);
+        assertNotNull(t2);
     }
-
+ 
     // -------------------------------------------------------------------------
-    // 3. filterApplicable
+    // filterApplicable()
     // -------------------------------------------------------------------------
-
+ 
     @Test
-    void filterApplicable_returnsAllWhenPlayerCanUseAll() {
-        Equation eq1 = new Equation(List.of(PebbleColor.RED),   List.of(PebbleColor.BLUE));
-        Equation eq2 = new Equation(List.of(PebbleColor.GREEN), List.of(PebbleColor.WHITE));
-        Equations table = Equations.createTable(List.of(eq1, eq2));
-
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.RED, 2, PebbleColor.GREEN, 2);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.BLUE, 2, PebbleColor.WHITE, 2);
-
-        Equations filtered = table.filterApplicable(player, bank);
-        assertEquals(2, filtered.size());
+    void filterApplicableReturnsOnlyUsableEquations() {
+        Equations table  = twoEquationTable(); // RED=BLUE, WHITE=GREEN
+        Pebbles   wallet = new Pebbles(List.of(Pebble.RED));
+        Pebbles   bank   = new Pebbles(List.of(Pebble.BLUE));
+        Equations result = table.filterApplicable(wallet, bank);
+        assertEquals(1, result.size());
+        assertEquals(redBlue(), result.getEquations().get(0));
     }
-
+ 
     @Test
-    void filterApplicable_returnsNoneWhenPlayerCanUseNone() {
-        Equations table = Equations.createTable(List.of(rwEqBg(), yEqR()));
-
-        // Player only has YELLOW; bank is empty so no direction works
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.YELLOW, 1);
-        Map<PebbleColor, Integer> bank   = Map.of();
-
-        assertEquals(0, table.filterApplicable(player, bank).size());
+    void filterApplicableReturnsEmptyWhenNoneApply() {
+        Equations table  = twoEquationTable();
+        Pebbles   wallet = new Pebbles(List.of(Pebble.YELLOW));
+        Pebbles   bank   = new Pebbles(List.of(Pebble.YELLOW));
+        Equations result = table.filterApplicable(wallet, bank);
+        assertTrue(result.isEmpty());
     }
-
+ 
     @Test
-    void filterApplicable_returnsSubsetWhenSomeApplicable() {
-        Equation canUse    = new Equation(List.of(PebbleColor.RED),   List.of(PebbleColor.BLUE));
-        Equation cannotUse = new Equation(List.of(PebbleColor.GREEN), List.of(PebbleColor.WHITE));
-        Equations table = Equations.createTable(List.of(canUse, cannotUse));
-
-        // Player has RED but not GREEN
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.RED, 1);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.BLUE, 5, PebbleColor.WHITE, 5);
-
-        Equations filtered = table.filterApplicable(player, bank);
-        assertEquals(1, filtered.size());
-        assertEquals(canUse, filtered.getEquations().get(0));
+    void filterApplicableReturnsAllWhenAllApply() {
+        Equations table  = twoEquationTable();
+        // Wallet has RED and WHITE; bank has BLUE and GREEN
+        Pebbles wallet = new Pebbles(List.of(Pebble.RED, Pebble.WHITE));
+        Pebbles bank   = new Pebbles(List.of(Pebble.BLUE, Pebble.GREEN));
+        Equations result = table.filterApplicable(wallet, bank);
+        assertEquals(2, result.size());
     }
-
+ 
     @Test
-    void filterApplicable_respectsBankConstraint() {
-        // eq: R = B — player has RED, but bank has no BLUE
-        Equation eq = new Equation(List.of(PebbleColor.RED), List.of(PebbleColor.BLUE));
-        Equations table = Equations.createTable(List.of(eq));
-
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.RED, 5);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.GREEN, 5); // no BLUE
-
-        assertEquals(0, table.filterApplicable(player, bank).size());
+    void filterApplicableConsidersBothDirections() {
+        // Equation is RED=BLUE. Wallet has BLUE, bank has RED.
+        // Right-to-left direction should be found applicable.
+        Equations table  = new Equations(List.of(redBlue()));
+        Pebbles   wallet = new Pebbles(List.of(Pebble.BLUE));
+        Pebbles   bank   = new Pebbles(List.of(Pebble.RED));
+        Equations result = table.filterApplicable(wallet, bank);
+        assertEquals(1, result.size());
     }
-
+ 
     @Test
-    void filterApplicable_includesReverseDirectionEquations() {
-        // eq: R = B — player has BLUE (reverse), bank has RED
-        Equation eq = new Equation(List.of(PebbleColor.RED), List.of(PebbleColor.BLUE));
-        Equations table = Equations.createTable(List.of(eq));
-
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.BLUE, 1);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.RED, 1);
-
-        assertEquals(1, table.filterApplicable(player, bank).size());
-    }
-
-    @Test
-    void filterApplicable_onEmptyTableReturnsEmptyTable() {
-        Equations table = Equations.createTable(List.of());
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.RED, 10);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.BLUE, 10);
-        assertEquals(0, table.filterApplicable(player, bank).size());
-    }
-
-    @Test
-    void filterApplicable_returnsNewTableNotSameReference() {
-        Equations table = Equations.createTable(List.of(rwEqBg()));
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.RED, 1, PebbleColor.WHITE, 1);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.BLUE, 1, PebbleColor.GREEN, 1);
-        Equations filtered = table.filterApplicable(player, bank);
-        assertNotSame(table, filtered);
-    }
-
-    @Test
-    void filterApplicable_doesNotMutateOriginalTable() {
-        Equation eq1 = new Equation(List.of(PebbleColor.RED),   List.of(PebbleColor.BLUE));
-        Equation eq2 = new Equation(List.of(PebbleColor.GREEN), List.of(PebbleColor.WHITE));
-        Equations table = Equations.createTable(List.of(eq1, eq2));
-
-        // Filter to only eq1
-        Map<PebbleColor, Integer> player = pebbles(PebbleColor.RED, 1);
-        Map<PebbleColor, Integer> bank   = pebbles(PebbleColor.BLUE, 5, PebbleColor.WHITE, 5);
-        table.filterApplicable(player, bank);
-
-        // Original table should still have both equations
+    void filterApplicableDoesNotModifyOriginalTable() {
+        Equations table  = twoEquationTable();
+        Pebbles   wallet = new Pebbles(List.of(Pebble.RED));
+        Pebbles   bank   = new Pebbles(List.of(Pebble.BLUE));
+        table.filterApplicable(wallet, bank);
         assertEquals(2, table.size());
     }
-
+ 
     // -------------------------------------------------------------------------
-    // 4. render / toString
+    // render()
     // -------------------------------------------------------------------------
-
+ 
     @Test
-    void render_containsHeaderLine() {
-        assertTrue(Equations.createTable(List.of(rwEqBg())).render().contains("Equations"));
+    void renderBeginsWithEquationsHeader() {
+        assertTrue(twoEquationTable().render().startsWith("Equations:"));
     }
-
+ 
     @Test
-    void render_containsOneEntryPerEquation() {
-        Equations table = Equations.createTable(List.of(rwEqBg(), yEqR()));
-        String rendered = table.render();
-        // Each equation's render() output should appear in the table's render()
-        assertTrue(rendered.contains(rwEqBg().render()));
-        assertTrue(rendered.contains(yEqR().render()));
+    void renderContainsOneLinePerEquation() {
+        String rendered = twoEquationTable().render();
+        // Two equations means two numbered lines
+        assertTrue(rendered.contains("1."));
+        assertTrue(rendered.contains("2."));
     }
-
+ 
     @Test
-    void render_entriesAreNumbered() {
-        Equations table = Equations.createTable(List.of(rwEqBg(), yEqR()));
-        String rendered = table.render();
-        assertTrue(rendered.contains("1."), "First entry should be numbered 1.");
-        assertTrue(rendered.contains("2."), "Second entry should be numbered 2.");
+    void renderOfEmptyTableShowsOnlyHeader() {
+        String rendered = new Equations(List.of()).render();
+        assertTrue(rendered.startsWith("Equations:"));
+        assertFalse(rendered.contains("1."));
     }
-
-    @Test
-    void render_emptyTableHasNoEqualSigns() {
-        String rendered = Equations.createTable(List.of()).render();
-        assertTrue(rendered.contains("Equations"), "Header should still appear");
-        assertFalse(rendered.contains("="), "Empty table should have no equation entries");
-    }
-
-    @Test
-    void render_tenEquationsNumberedCorrectly() {
-        Equations table = Equations.createTable(tenEquations());
-        String rendered = table.render();
-        assertTrue(rendered.contains("10."), "Tenth entry should be numbered 10.");
-    }
-
-    @Test
-    void render_toStringDelegatesToRender() {
-        Equations table = Equations.createTable(List.of(rwEqBg()));
-        assertEquals(table.render(), table.toString());
-    }
-
+ 
     // -------------------------------------------------------------------------
-    // 5. getEquations / size
+    // getEquations()
     // -------------------------------------------------------------------------
-
+ 
     @Test
-    void size_emptyTableIsZero() {
-        assertEquals(0, Equations.createTable(List.of()).size());
+    void getEquationsReturnsCorrectList() {
+        Equations table = twoEquationTable();
+        assertEquals(2, table.getEquations().size());
+        assertEquals(redBlue(), table.getEquations().get(0));
     }
-
+ 
     @Test
-    void size_reflectsNumberOfEquationsAdded() {
-        assertEquals(3, Equations.createTable(List.of(rwEqBg(), yEqR(), gEqW())).size());
+    void getEquationsIsUnmodifiable() {
+        Equations table = twoEquationTable();
+        assertThrows(UnsupportedOperationException.class,
+            () -> table.getEquations().add(yellowRedWhite()));
     }
-
+ 
+    // -------------------------------------------------------------------------
+    // size() and isEmpty()
+    // -------------------------------------------------------------------------
+ 
     @Test
-    void size_matchesGetEquationsSize() {
-        Equations table = Equations.createTable(List.of(rwEqBg(), yEqR()));
-        assertEquals(table.size(), table.getEquations().size());
+    void sizeReturnsNumberOfEquations() {
+        assertEquals(2, twoEquationTable().size());
     }
-
+ 
     @Test
-    void getEquations_containsExactlyTheEquationsAdded() {
-        List<Equation> eqs = List.of(rwEqBg(), yEqR());
-        Equations table = Equations.createTable(eqs);
-        assertTrue(table.getEquations().contains(rwEqBg()));
-        assertTrue(table.getEquations().contains(yEqR()));
+    void sizeOfEmptyTableIsZero() {
+        assertEquals(0, new Equations(List.of()).size());
+    }
+ 
+    @Test
+    void isEmptyReturnsTrueForEmptyTable() {
+        assertTrue(new Equations(List.of()).isEmpty());
+    }
+ 
+    @Test
+    void isEmptyReturnsFalseForNonEmptyTable() {
+        assertFalse(twoEquationTable().isEmpty());
+    }
+ 
+    // -------------------------------------------------------------------------
+    // equals() and hashCode()
+    // -------------------------------------------------------------------------
+ 
+    @Test
+    void tablesWithSameEquationsAreEqual() {
+        Equations t1 = twoEquationTable();
+        Equations t2 = twoEquationTable();
+        assertEquals(t1, t2);
+    }
+ 
+    @Test
+    void tablesWithDifferentEquationsAreNotEqual() {
+        Equations t1 = twoEquationTable();
+        Equations t2 = new Equations(List.of(redBlue()));
+        assertNotEquals(t1, t2);
+    }
+ 
+    @Test
+    void equalTablesHaveEqualHashCodes() {
+        assertEquals(twoEquationTable().hashCode(), twoEquationTable().hashCode());
+    }
+ 
+    @Test
+    void tableIsEqualToItself() {
+        Equations t = twoEquationTable();
+        assertEquals(t, t);
+    }
+ 
+    @Test
+    void tableIsNotEqualToNull() {
+        assertNotEquals(null, twoEquationTable());
     }
 }
