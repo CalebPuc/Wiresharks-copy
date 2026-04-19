@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="player.PurchaseSizeStrategyTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-04-19T20:18:45" hostname="MoreRemoteChaos" time="0.017">
+  <properties/>
+  <testcase name="neverExceedsFourExchanges()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="twoStrategiesCanProduceDifferentDecisionsOnSameInput()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="handlesEmptyEquationsWithNoError()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="walletIsNonNullEvenWhenNothingHappens()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="usesExchangeToEnableMorePurchases()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="buysAffordableCardDirectly()" classname="player.PurchaseSizeStrategyTest" time="0.0"/>
+  <testcase name="buysTwoCardsWhenBothAffordable()" classname="player.PurchaseSizeStrategyTest" time="0.0"/>
+  <testcase name="doesNotBuyUnaffordableCard()" classname="player.PurchaseSizeStrategyTest" time="0.0"/>
+  <testcase name="prefersTwoPlainCardsOverOneStarCard()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="handlesEmptyVisiblesWithNoError()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="doesNotBuyMoreCardsThanAffordable()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="walletReflectsStateAfterAllPurchases()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="buysThreeCardsWhenAllAffordable()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="returnsNonNullDecision()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <testcase name="fewerExchangesPreferredWhenCardCountIsEqual()" classname="player.PurchaseSizeStrategyTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

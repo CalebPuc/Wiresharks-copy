@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="player.ExchangeStepTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-04-19T20:18:46" hostname="MoreRemoteChaos" time="0.019">
+  <properties/>
+  <testcase name="getReceivedReturnsRightSideWhenLeftToRight()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="getGivenReturnsRightSideWhenRightToLeft()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="constructorAcceptsLeftToRight()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="constructorRejectsNullEquation()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="stepsWithSameEquationButDifferentDirectionAreNotEqual()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="stepsWithDifferentEquationsAreNotEqual()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="getGivenReturnsLeftSideWhenLeftToRight()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="getEquationReturnsTheEquation()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="getReceivedReturnsLeftSideWhenRightToLeft()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="constructorAcceptsRightToLeft()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="stepsWithSameEquationAndDirectionAreEqual()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="getReceivedReturnsCorrectSideForMultiPebbleEquation()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="equalStepsHaveEqualHashCodes()" classname="player.ExchangeStepTest" time="0.004"/>
+  <testcase name="isLeftToRightReturnsTrueForLeftToRightStep()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="getGivenReturnsCorrectSideForMultiPebbleEquation()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="givenAndReceivedAreOpposites()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="isLeftToRightReturnsFalseForRightToLeftStep()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="stepIsEqualToItself()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="stepIsNotEqualToNull()" classname="player.ExchangeStepTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

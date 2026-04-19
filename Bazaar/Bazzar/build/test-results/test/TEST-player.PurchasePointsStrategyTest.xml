@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="player.PurchasePointsStrategyTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-04-19T20:18:45" hostname="MoreRemoteChaos" time="0.129">
+  <properties/>
+  <testcase name="starCardScoreCorrectAtZeroPebbles()" classname="player.PurchasePointsStrategyTest" time="0.097"/>
+  <testcase name="decisionPointsMatchExpectedScoringTable()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="neverExceedsFourExchanges()" classname="player.PurchasePointsStrategyTest" time="0.006"/>
+  <testcase name="handlesEmptyEquationsWithNoError()" classname="player.PurchasePointsStrategyTest" time="0.005"/>
+  <testcase name="walletIsNonNullEvenWhenNothingHappens()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="earnsZeroPointsWhenNothingCanBeBought()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="buysAffordableCardDirectly()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="totalPointsArePositiveWhenCardIsBought()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="usesExchangeToEnableCardPurchase()" classname="player.PurchasePointsStrategyTest" time="0.004"/>
+  <testcase name="doesNotBuyUnaffordableCard()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="walletReflectsStateAfterPurchase()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="handlesEmptyVisiblesWithNoError()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="fewerExchangesPreferredWhenOutcomesAreEqual()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="prefersStarCardOverPlainWhenStarGivesMorePoints()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="returnsNonNullDecision()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.CardTest" tests="22" skipped="0" failures="0" errors="0" timestamp="2026-04-19T20:18:45" hostname="MoreRemoteChaos" time="0.047">
+  <properties/>
+  <testcase name="cardIsEqualToItself()" classname="common.CardTest" time="0.01"/>
+  <testcase name="cardsWithDifferentStarStatusAreNotEqual()" classname="common.CardTest" time="0.004"/>
+  <testcase name="renderContainsAllFivePebbleAbbreviations()" classname="common.CardTest" time="0.001"/>
+  <testcase name="renderOfPlainCardDoesNotContainStar()" classname="common.CardTest" time="0.0"/>
+  <testcase name="canAcquireReturnsTrueWhenWalletHasMore()" classname="common.CardTest" time="0.0"/>
+  <testcase name="cardsWithDifferentPebblesAreNotEqual()" classname="common.CardTest" time="0.0"/>
+  <testcase name="canAcquireReturnsTrueWhenWalletMatchesExactly()" classname="common.CardTest" time="0.0"/>
+  <testcase name="hasStarReturnsFalseForPlainCard()" classname="common.CardTest" time="0.0"/>
+  <testcase name="cardIsNotEqualToNull()" classname="common.CardTest" time="0.001"/>
+  <testcase name="getPebblesReturnsCardPebbles()" classname="common.CardTest" time="0.001"/>
+  <testcase name="canAcquireReturnsFalseWhenWalletLacksPebbles()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorRejectsFourPebbles()" classname="common.CardTest" time="0.007"/>
+  <testcase name="cardsWithSamePebblesAndStarAreEqual()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorRejectsSixPebbles()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorAcceptsExactlyFivePebbles()" classname="common.CardTest" time="0.006"/>
+  <testcase name="canAcquireReturnsFalseForEmptyWallet()" classname="common.CardTest" time="0.0"/>
+  <testcase name="canAcquireReturnsFalseWhenWalletHasWrongColors()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorAcceptsStarCard()" classname="common.CardTest" time="0.001"/>
+  <testcase name="renderOfStarCardContainsStar()" classname="common.CardTest" time="0.001"/>
+  <testcase name="equalCardsHaveEqualHashCodes()" classname="common.CardTest" time="0.001"/>
+  <testcase name="hasStarReturnsTrueForStarCard()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorRejectsEmptyPebbles()" classname="common.CardTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
