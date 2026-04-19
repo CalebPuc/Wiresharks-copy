@@ -1,210 +1,190 @@
 package common;
-
+ 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-
+import java.util.Random;
+ 
 /**
- * Represents a card in the Bazaar game.
+ * An ordered collection of cards in the Bazaar game.
  *
- * A card displays five pebbles arranged in a circle, optionally decorated
- * with a star in the center. Players purchase cards to earn points.
+ * Used to represent both the deck of face-down cards and the visible
+ * cards on the table. Order matters: the first card in the list is the
+ * next one to be drawn or purchased.
  *
  * Data representation:
- *   - pebbles: an ordered list of exactly 5 PebbleColor values
- *   - hasStar: whether the card has a star (worth more points)
+ *   A list of Card values. The list is ordered and may contain duplicates.
+ *
+ * Invariant: the list is non-null.
  */
 public class Cards {
-
-    // -------------------------------------------------------------------------
-    // Data Definitions
-    // -------------------------------------------------------------------------
-
-    /**
-     * The five pebble colors in the Bazaar game.
-     */
-    public enum PebbleColor {
-        RED, WHITE, BLUE, GREEN, YELLOW;
-
-        /** Returns a single-character abbreviation for rendering. */
-        public String abbreviation() {
-            return this.name().substring(0, 1);
-        }
-
-        /** Returns a hex color string for graphical rendering. */
-        public String hexColor() {
-            switch (this) {
-                case RED:    return "#E74C3C";
-                case WHITE:  return "#ECF0F1";
-                case BLUE:   return "#3498DB";
-                case GREEN:  return "#2ECC71";
-                case YELLOW: return "#F1C40F";
-                default:     throw new IllegalStateException();
-            }
-        }
-    }
-
-    // -------------------------------------------------------------------------
-    // Fields
-    // -------------------------------------------------------------------------
-
-    private final List<PebbleColor> pebbles; // exactly 5 pebbles
-    private final boolean hasStar;
-
+ 
+    private final List<Card> cards;
+ 
     // -------------------------------------------------------------------------
     // Constructor
     // -------------------------------------------------------------------------
-
+ 
     /**
-     * Creates a card with the given pebbles and star status.
-     *
-     * @param pebbles a list of exactly 5 PebbleColor values
-     * @param hasStar true if this card has a star
-     * @throws IllegalArgumentException if pebbles does not have exactly 5 elements
+     * Creates a Cards collection from the given list.
      */
-    public Cards(List<PebbleColor> pebbles, boolean hasStar) {
-        if (pebbles == null || pebbles.size() != 5) {
-            throw new IllegalArgumentException("A card must have exactly 5 pebbles.");
+    public Cards(List<Card> cards) {
+        if (cards == null) {
+            throw new IllegalArgumentException("Card list must not be null.");
         }
-        this.pebbles = Collections.unmodifiableList(new ArrayList<>(pebbles));
-        this.hasStar = hasStar;
+        this.cards = Collections.unmodifiableList(new ArrayList<>(cards));
     }
-
+ 
     // -------------------------------------------------------------------------
-    // Functionality (public API)
+    // (5) Creating cards
     // -------------------------------------------------------------------------
-
+ 
     /**
-     * (5) Creates a card with specific pebbles and star status.
-     * Static factory method for convenient construction.
+     * Returns a new collection of 20 randomly generated cards, as used
+     * by the referee at game setup.
      *
-     * @param pebbles list of exactly 5 PebbleColor values
-     * @param hasStar whether the card has a star
-     * @return a new Cards instance
+     * Each card is assigned 5 randomly chosen pebbles and a randomly
+     * assigned star status.
      */
-    public static Cards createCard(List<PebbleColor> pebbles, boolean hasStar) {
-        return new Cards(pebbles, hasStar);
+    public static Cards createRandom() {
+        Random rng = new Random();
+        Pebble[] colors = Pebble.values();
+        List<Card> result = new ArrayList<>();
+        while (result.size() < 20) {
+            List<Pebble> pebbleList = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                pebbleList.add(colors[rng.nextInt(colors.length)]);
+            }
+            boolean star = rng.nextBoolean();
+            result.add(new Card(new Pebbles(pebbleList), star));
+        }
+        return new Cards(result);
     }
-
+ 
+    // -------------------------------------------------------------------------
+    // (6) Determining whether a player can acquire any card
+    // -------------------------------------------------------------------------
+ 
     /**
-     * (6) Determines whether a player can acquire this card with its pebbles.
+     * Returns true if the given wallet is sufficient to purchase at least
+     * one card in this collection.
      *
-     * A player can acquire a card if their pebble collection contains
-     * at least the multiset of pebbles shown on the card.
-     *
-     * @param playerPebbles a map from PebbleColor to count representing the player's pebbles
-     * @return true if the player has enough pebbles to purchase this card
+     * Used by the referee to determine whether a player can buy anything
+     * on its turn.
      */
-    public boolean canAcquire(Map<PebbleColor, Integer> playerPebbles) {
-        Map<PebbleColor, Integer> required = toPebbleMap(this.pebbles);
-        for (Map.Entry<PebbleColor, Integer> entry : required.entrySet()) {
-            int have = playerPebbles.getOrDefault(entry.getKey(), 0);
-            if (have < entry.getValue()) {
-                return false;
+    public boolean canAcquireAny(Pebbles wallet) {
+        for (Card card : cards) {
+            if (card.canAcquire(wallet)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
-
+ 
+    // -------------------------------------------------------------------------
+    // (7) Rendering the collection graphically
+    // -------------------------------------------------------------------------
+ 
     /**
-     * (7) Renders this card graphically as an ASCII/text representation.
+     * Returns a text representation of all cards in this collection,
+     * listing each card on its own line with a one-based index.
      *
-     * Displays the 5 pebbles in a circular arrangement and indicates
-     * whether the card has a star.
-     *
-     * Example output:
-     *   [ R  W  B  G  Y ]  ★
+     * Example:
+     *   Cards:
+     *     1.  [ R W B G Y ]  *
+     *     2.  [ R R B G Y ]
      */
     public String render() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (PebbleColor p : pebbles) {
-            sb.append(" ").append(colorBlock(p));
-        }
-        sb.append(" ]");
-        if (hasStar) {
-            sb.append("  ★");
+        sb.append("Cards:\n");
+        for (int i = 0; i < cards.size(); i++) {
+            sb.append(String.format("  %2d.  %s%n", i + 1, cards.get(i).render()));
         }
         return sb.toString();
     }
-
+ 
+    // -------------------------------------------------------------------------
+    // Accessors and transformations
+    // -------------------------------------------------------------------------
+ 
     /**
-     * Computes the score earned when purchasing this card, based on
-     * how many pebbles the player has left after the purchase.
+     * Returns a read-only view of the cards in this collection.
+     */
+    public List<Card> getCards() {
+        return cards;
+    }
+ 
+    /**
+     * Returns the number of cards in this collection.
+     */
+    public int size() {
+        return cards.size();
+    }
+ 
+    /**
+     * Returns true if this collection contains no cards.
+     */
+    public boolean isEmpty() {
+        return cards.isEmpty();
+    }
+ 
+    /**
+     * Returns the first card in this collection.
      *
-     * @param pebblesRemaining number of pebbles the player has after buying
-     * @return the points earned
+     * @throws IllegalStateException if this collection is empty
      */
-    public int score(int pebblesRemaining) {
-        if (hasStar) {
-            if (pebblesRemaining >= 3) return 2;
-            if (pebblesRemaining == 2) return 3;
-            if (pebblesRemaining == 1) return 5;
-            return 8; // 0 pebbles
-        } else {
-            if (pebblesRemaining >= 3) return 1;
-            if (pebblesRemaining == 2) return 2;
-            if (pebblesRemaining == 1) return 3;
-            return 5; // 0 pebbles
+    public Card getFirst() {
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("Cannot get first card of an empty collection.");
         }
+        return cards.get(0);
     }
-
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
-
-    public List<PebbleColor> getPebbles() {
-        return pebbles;
-    }
-
-    public boolean hasStar() {
-        return hasStar;
-    }
-
-    // -------------------------------------------------------------------------
-    // Private helpers
-    // -------------------------------------------------------------------------
-
+ 
     /**
-     * Converts a list of pebbles into a color → count map.
+     * Returns a new Cards with the first card removed. Does not modify
+     * this collection.
+     *
+     * Used when the referee draws the next card from the deck or removes
+     * a purchased card from the visible cards.
+     *
+     * @throws IllegalStateException if this collection is empty
      */
-    private static Map<PebbleColor, Integer> toPebbleMap(List<PebbleColor> pebbles) {
-        Map<PebbleColor, Integer> map = new EnumMap<>(PebbleColor.class);
-        for (PebbleColor p : pebbles) {
-            map.merge(p, 1, Integer::sum);
+    public Cards removeFirst() {
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("Cannot remove from an empty collection.");
         }
-        return map;
+        return new Cards(cards.subList(1, cards.size()));
     }
-
-    /**
-     * Returns a colored block character for terminal rendering.
-     * Falls back to a letter abbreviation in plain text contexts.
-     */
-    private static String colorBlock(PebbleColor color) {
-        return color.abbreviation();
-    }
-
+ 
     // -------------------------------------------------------------------------
     // Object overrides
     // -------------------------------------------------------------------------
-
-    @Override
-    public String toString() {
-        return render();
-    }
-
+ 
+    /**
+     * Returns true if this collection and {@code that} contain the same
+     * cards in the same order.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cards)) return false;
-        Cards other = (Cards) o;
-        return hasStar == other.hasStar && pebbles.equals(other.pebbles);
+        Cards that = (Cards) o;
+        return this.cards.equals(that.cards);
     }
-
+ 
+    /**
+     * Returns a hash code consistent with {@link #equals}.
+     */
     @Override
     public int hashCode() {
-        return 31 * pebbles.hashCode() + (hasStar ? 1 : 0);
+        return cards.hashCode();
+    }
+ 
+    /**
+     * Returns a text representation of this card collection.
+     */
+    @Override
+    public String toString() {
+        return render();
     }
 }
