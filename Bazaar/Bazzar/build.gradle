@@ -12,19 +12,15 @@ java {
 }
 
 dependencies {
-    // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-    // Gson package
     implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 test {
-    // Tell Gradle to use the JUnit 5 platform to discover and run tests
     useJUnitPlatform()
 }
 
-// Helper to build a fat JAR for a given main class
 def fatJar(String jarName, String mainClass) {
     return tasks.create(jarName, Jar) {
         archiveFileName = "${jarName}.jar"
@@ -41,11 +37,7 @@ def fatJar(String jarName, String mainClass) {
     }
 }
 
-// Build xeq.jar with XEq as the entry point
 fatJar('xeq', 'xeq.XEq')
-
-// Build xturn.jar with XTurn as the entry point
 fatJar('xturn', 'xturn.XTurn')
-
-// Build xstrategy.jar with XStrategy as the entry point
 fatJar('xstrategy', 'xstrategy.XStrategy')
+fatJar('xrules', 'xrules.XRules')
