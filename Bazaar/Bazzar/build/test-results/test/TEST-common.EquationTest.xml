@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.EquationTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2026-04-19T19:01:28" hostname="MoreRemoteChaos" time="0.039">
+  <properties/>
+  <testcase name="reversedOrientationEquationsAreEqual()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="constructorRejectsLeftSideExceedingFourPebbles()" classname="common.EquationTest" time="0.005"/>
+  <testcase name="sameOrientationEquationsAreEqual()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="differentEquationsAreNotEqual()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="renderShowsBothSidesSeparatedByEquals()" classname="common.EquationTest" time="0.004"/>
+  <testcase name="renderProducesCorrectFormat()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="constructorAcceptsValidEquation()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyRightToLeftReturnsTrueWhenAffordable()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="getLeftReturnsLeftSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="equalEquationsHaveEqualHashCodes()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyReturnsTrueWhenRightToLeftIsPossible()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyLeftToRightReturnsFalseWhenPlayerLacksLeftSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyRightToLeftReturnsFalseWhenPlayerLacksRightSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="equationIsNotEqualToNull()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyRightToLeftReturnsFalseWhenBankLacksLeftSide()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="getRightReturnsRightSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyLeftToRightReturnsTrueWhenAffordable()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="constructorRejectsEmptyRightSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyLeftToRightReturnsFalseWhenBankLacksRightSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyReturnsFalseWhenNeitherDirectionIsPossible()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="constructorAcceptsMaximumSizeSides()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="constructorRejectsOverlappingColors()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="equationIsEqualToItself()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="constructorRejectsEmptyLeftSide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyReturnsTrueWhenLeftToRightIsPossible()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="constructorRejectsRightSideExceedingFourPebbles()" classname="common.EquationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.PebbleTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-19T19:01:28" hostname="MoreRemoteChaos" time="0.011">
+  <properties/>
+  <testcase name="redHexColorIsCorrect()" classname="common.PebbleTest" time="0.001"/>
+  <testcase name="blueHexColorIsCorrect()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="whiteAbbreviationIsW()" classname="common.PebbleTest" time="0.001"/>
+  <testcase name="allFiveColorsExist()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="redAbbreviationIsR()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="blueAbbreviationIsB()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="whiteHexColorIsCorrect()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="hexColorBeginsWithHash()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="yellowAbbreviationIsY()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="greenHexColorIsCorrect()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="yellowHexColorIsCorrect()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="hexColorIsSevenCharacters()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="greenAbbreviationIsG()" classname="common.PebbleTest" time="0.0"/>
+  <testcase name="abbreviationIsSingleCharacter()" classname="common.PebbleTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="referee.GameStateTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2026-04-19T19:01:28" hostname="MoreRemoteChaos" time="0.013">
+  <properties/>
+  <testcase name="gameStateIsEqualToItself()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="gameStateIsNotEqualToNull()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="toTurnStateWithOnePlayerHasEmptyScores()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="constructorRejectsEmptyPlayerList()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="isGameOverReturnsFalseForActiveGame()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="toTurnStateScoresContainOtherPlayersOnlyNotActive()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="toTurnStateReturnsActivePlayerAsActive()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="renderContainsPlayerInfo()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="equalGameStatesAreEqual()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="toTurnStateDoesNotExposeOtherPlayersWallets()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="isGameOverReturnsTrueWhenBankEmptyAndNoOneCanBuy()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="renderContainsDeckInfo()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="isGameOverReturnsTrueWhenPlayerReaches20Points()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="isGameOverReturnsTrueWhenPlayerListIsEmpty()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="toTurnStateReturnsCorrectBank()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="constructorAcceptsValidState()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="equalGameStatesHaveEqualHashCodes()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="constructorRejectsNullBank()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="isGameOverReturnsFalseWhenBankEmptyButPlayerCanBuy()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="gameStatesWithDifferentBanksAreNotEqual()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="getActivePlayerReturnsFirstPlayer()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="isGameOverReturnsTrueWhenNoCardsRemain()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="constructorMakesDefensiveCopyOfPlayers()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="renderContainsBankInfo()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="toTurnStateReturnsCorrectVisibles()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="isGameOverReturnsTrueWhenPlayerExceeds20Points()" classname="referee.GameStateTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
