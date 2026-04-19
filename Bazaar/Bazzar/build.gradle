@@ -46,3 +46,6 @@ fatJar('xeq', 'xeq.XEq')
 
 // Build xturn.jar with XTurn as the entry point
 fatJar('xturn', 'xturn.XTurn')
+
+// Build xstrategy.jar with XStrategy as the entry point
+fatJar('xstrategy', 'xstrategy.XStrategy')
