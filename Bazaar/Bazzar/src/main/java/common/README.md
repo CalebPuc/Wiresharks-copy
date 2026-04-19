@@ -1,38 +1,34 @@
 # common
-
-This package contains data representations shared across the Bazaar game system — used by both the referee and any player components.
-
-## Files
-
-### `Cards.java`
-Represents a single purchasable card. A card holds exactly 5 pebbles and an optional star flag. Includes:
-- `createCard(List<PebbleColor>, boolean)` — static factory
-- `canAcquire(Map<PebbleColor, Integer>)` — checks if a player can afford the card
-- `score(int pebblesRemaining)` — computes points earned on purchase
-- `render()` — ASCII display, e.g. `[ R W B G Y ]  ★`
-
-Also defines the `PebbleColor` enum (`RED`, `WHITE`, `BLUE`, `GREEN`, `YELLOW`) used throughout the project.
-
-### `Equation.java`
-Represents a single bidirectional trade between two pebble collections (1–4 pebbles per side). Includes:
-- `canApplyLeftToRight(playerPebbles, bankPebbles)`
-- `canApplyRightToLeft(playerPebbles, bankPebbles)`
-- `canApply(playerPebbles, bankPebbles)` — either direction
-- `render()` — e.g. `"R W = B G"`
-- Symmetric `equals()` — `R W = B G` and `B G = R W` are the same equation
-
-### `Equations.java`
-Represents the table of up to 10 equations fixed for an entire game. Includes:
-- `createTable(List<Equation>)` — static default table
-- `createRandomTable()` — generates 10 valid random equations
-- `filterApplicable(playerPebbles, bankPebbles)` — returns equations usable in at least one direction
-- `render()` — =formatted display
-
-### `TurnState.java`
-A read-only snapshot the refere sends to the active player at the start of their turn. Contains only what the player is permitted to know:
-- The bank's current pebble counts
-- The active player's own wallet and score
-- The scores of all other active players 
-- The currently visible cards
-
-Includes `render()` for display.
+ 
+This package contains the data representations shared by both the referee
+and the player components of the Bazaar game system.
+ 
+## Why Common?
+ 
+The referee and player are independent components that may be developed
+by different teams. Both need to reason about the same game pieces —
+pebbles, equations, and cards — without either depending on the other.
+Placing these shared representations here ensures that neither component
+owns what both need, and that no circular dependencies arise between them.
+ 
+No class in this package may reference any class in the `referee` or
+`player` packages.
+ 
+## Contents
+ 
+- **`Pebble.java`** — the five pebble colors: RED, WHITE, BLUE, GREEN, YELLOW.
+  The most fundamental type in the system; everything else is built on it.
+- **`Pebbles.java`** — a multiset of pebbles, where color matters but order
+  does not. Used to represent a player's wallet, the bank's supply, and
+  each side of an equation.
+- **`Equation.java`** — a single bidirectional trade between two disjoint
+  pebble collections (1–4 pebbles per side). Either side may be given to
+  receive the other, subject to what the player and bank each possess.
+- **`Equations.java`** — the table of up to 10 equations fixed at the start
+  of a game and visible to all players. Supports filtering to the subset
+  applicable to a given wallet and bank.
+- **`Card.java`** — a single purchasable card displaying exactly 5 pebbles
+  and an optional star. A player may purchase a card if their wallet
+  contains at least the pebbles shown.
+- **`Cards.java`** — an ordered collection of cards. Used to represent both
+  the face-down draw deck and the visible cards on the table.

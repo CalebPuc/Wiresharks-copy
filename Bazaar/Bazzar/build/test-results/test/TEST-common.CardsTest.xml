@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.CardsTest" tests="30" skipped="0" failures="0" errors="0" timestamp="2026-04-19T18:20:22" hostname="MoreRemoteChaos" time="0.026">
+  <properties/>
+  <testcase name="renderContainsOneLinePerCard()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="getFirstThrowsOnEmptyCollection()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="isEmptyReturnsFalseForNonEmptyCollection()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="collectionsWithDifferentCardsAreNotEqual()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="removeFirstThrowsOnEmptyCollection()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="constructorAcceptsNonEmptyList()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="collectionsWithSameCardsInSameOrderAreEqual()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="removeFirstReturnsSmallerCollection()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="canAcquireAnyReturnsFalseForEmptyCollection()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="sizeOfEmptyCollectionIsZero()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="canAcquireAnyReturnsFalseWhenNoCardIsAffordable()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="createRandomProducesValidCards()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="equalCollectionsHaveEqualHashCodes()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="renderOfEmptyCollectionShowsOnlyHeader()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="getCardsIsUnmodifiable()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="collectionIsEqualToItself()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="createRandomProducesTwentyCards()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="collectionIsNotEqualToNull()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="getFirstReturnsFirstCard()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="getCardsReturnsCorrectList()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="constructorAcceptsEmptyList()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="canAcquireAnyReturnsFalseForEmptyWallet()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="sizeReturnsNumberOfCards()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="isEmptyReturnsTrueForEmptyCollection()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="removeFirstDoesNotModifyOriginal()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="renderBeginsWithCardsHeader()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="canAcquireAnyReturnsTrueWhenOneCardIsAffordable()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="collectionsWithSameCardsInDifferentOrderAreNotEqual()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="removeFirstRemovesCorrectCard()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="constructorMakesDefensiveCopy()" classname="common.CardsTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
