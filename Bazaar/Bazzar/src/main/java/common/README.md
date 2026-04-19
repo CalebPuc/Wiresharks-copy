@@ -7,9 +7,10 @@ and the player components of the Bazaar game system.
  
 The referee and player are independent components that may be developed
 by different teams. Both need to reason about the same game pieces —
-pebbles, equations, and cards — without either depending on the other.
-Placing these shared representations here ensures that neither component
-owns what both need, and that no circular dependencies arise between them.
+pebbles, equations, cards, and turn information — without either depending
+on the other. Placing these shared representations here ensures that neither
+component owns what both need, and that no circular dependencies arise
+between them.
  
 No class in this package may reference any class in the `referee` or
 `player` packages.
@@ -32,3 +33,11 @@ No class in this package may reference any class in the `referee` or
   contains at least the pebbles shown.
 - **`Cards.java`** — an ordered collection of cards. Used to represent both
   the face-down draw deck and the visible cards on the table.
+- **`PlayerState.java`** — a single player's visible state: their wallet and
+  current score. Used in both TurnState and GameState so that neither the
+  referee nor the player needs to own this definition independently.
+- **`TurnState.java`** — the read-only snapshot the referee sends to the
+  active player at the start of their turn. Contains the bank, the visible
+  cards, the active player's own state, and the scores (not wallets) of
+  the remaining players. Deliberately excludes information the active
+  player is not permitted to know.
