@@ -18,10 +18,9 @@ import java.util.List;
  *   visibles: the four face-up cards players may purchase
  *   deck:    remaining face-down cards not yet revealed
  *   players: all active players in turn order, each with a wallet
- *            and score; the first player is the active player
- *
- * Invariant: bank, visibles, deck, players are non-null;
- *            players has at least one entry.
+ *            and score; the first player is the active player.
+ *            may be empty if all players have been eliminated --
+ *            isGameOver() catches this case.
  */
 public class GameState {
  
@@ -31,8 +30,9 @@ public class GameState {
     private final List<PlayerState> players;
  
     // Pebbles Cards Cards List<PlayerState> -> GameState
-    // creates a GameState with the given bank, visible cards, deck, and players
-    // throws IllegalArgumentException if any argument is null or players is empty
+    // creates a GameState with the given fields
+    // players may be empty -- that just means the game is already over
+    // throws IllegalArgumentException if any argument is null
     public GameState(Pebbles bank,
                      Cards visibles,
                      Cards deck,
@@ -40,10 +40,6 @@ public class GameState {
         if (bank == null || visibles == null || deck == null || players == null) {
             throw new IllegalArgumentException(
                 "GameState fields must not be null.");
-        }
-        if (players.isEmpty()) {
-            throw new IllegalArgumentException(
-                "GameState must have at least one player.");
         }
         this.bank     = bank;
         this.visibles = visibles;
@@ -71,13 +67,20 @@ public class GameState {
  
     // GameState -> List<PlayerState>
     // returns all players in turn order -- first player is the active one
+    // may be empty if all players have been eliminated
     public List<PlayerState> getPlayers() {
         return players;
     }
  
     // GameState -> PlayerState
     // returns the active player -- the first in turn order
+    // throws IllegalStateException if there are no players left
+    // the referee should check isGameOver() before calling this
     public PlayerState getActivePlayer() {
+        if (players.isEmpty()) {
+            throw new IllegalStateException(
+                "No active player -- all players have been eliminated.");
+        }
         return players.get(0);
     }
  
@@ -107,7 +110,12 @@ public class GameState {
     // returns the TurnState for the active player -- only what they
     // are allowed to know: bank, visible cards, their own state,
     // and the scores (not wallets) of remaining players
+    // throws IllegalStateException if there are no players
     public TurnState toTurnState() {
+        if (players.isEmpty()) {
+            throw new IllegalStateException(
+                "Cannot create TurnState -- no players remaining.");
+        }
         PlayerState active = players.get(0);
         List<Integer> otherScores = new ArrayList<>();
         for (int i = 1; i < players.size(); i++) {
@@ -116,20 +124,67 @@ public class GameState {
         return new TurnState(bank, visibles, active, otherScores);
     }
  
+    // GameState -> GameState
+    // returns a new GameState with the active player removed
+    // their pebbles disappear from the game -- not returned to the bank
+    // if this was the last player, returns a GameState with an empty
+    // player list that isGameOver() will catch on the next check
+    public GameState withActivePlayerRemoved() {
+        List<PlayerState> remaining =
+            new ArrayList<>(players.subList(1, players.size()));
+        return new GameState(bank, visibles, deck, remaining);
+    }
+ 
+    // GameState PlayerState -> GameState
+    // returns a new GameState with the active player replaced by the given state
+    // used when the referee applies a legal wallet or score change
+    public GameState withUpdatedActivePlayer(PlayerState updated) {
+        List<PlayerState> newPlayers = new ArrayList<>(players);
+        newPlayers.set(0, updated);
+        return new GameState(bank, visibles, deck, newPlayers);
+    }
+ 
+    // GameState -> GameState
+    // returns a new GameState with the active player moved to the back
+    // used at the end of a legal turn to grant the next player their turn
+    public GameState withRotatedPlayers() {
+        List<PlayerState> rotated = new ArrayList<>(players);
+        PlayerState first = rotated.remove(0);
+        rotated.add(first);
+        return new GameState(bank, visibles, deck, rotated);
+    }
+ 
+    // GameState Pebbles -> GameState
+    // returns a new GameState with the given bank
+    // used when the referee applies exchanges or a pebble draw
+    public GameState withBank(Pebbles newBank) {
+        return new GameState(newBank, visibles, deck, players);
+    }
+ 
+    // GameState Cards Cards -> GameState
+    // returns a new GameState with updated visible cards and deck
+    // used when the referee replaces purchased cards with new ones
+    public GameState withUpdatedCards(Cards newVisibles, Cards newDeck) {
+        return new GameState(bank, newVisibles, newDeck, players);
+    }
+ 
     // GameState -> String
-    // text representation of the full game state
-    // used by the referee to display or log the current state
+    // text representation of the full game state for logging
     public String render() {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Game State ===\n");
         sb.append("Bank:      ").append(bank.toString()).append("\n");
         sb.append("Visibles:  ").append(visibles.render());
         sb.append("Deck size: ").append(deck.size()).append(" cards\n");
-        sb.append("Players:\n");
-        for (int i = 0; i < players.size(); i++) {
-            String label = (i == 0) ? " (active)" : "";
-            sb.append(String.format("  %d%s: %s%n",
-                i + 1, label, players.get(i).render()));
+        if (players.isEmpty()) {
+            sb.append("Players:   (none)\n");
+        } else {
+            sb.append("Players:\n");
+            for (int i = 0; i < players.size(); i++) {
+                String label = (i == 0) ? " (active)" : "";
+                sb.append(String.format("  %d%s: %s%n",
+                    i + 1, label, players.get(i).render()));
+            }
         }
         return sb.toString();
     }
@@ -158,15 +213,13 @@ public class GameState {
         return result;
     }
  
-    // GameState -> String
     @Override
     public String toString() {
         return render();
     }
  
-    // GameState -> boolean
-    // true if any player currently has enough pebbles to buy at least
-    // one visible card -- used as part of the game-over check
+    // true if any player can buy at least one visible card
+    // used for the bank-empty game-over check
     private boolean anyPlayerCanBuyCard() {
         for (PlayerState p : players) {
             if (visibles.canAcquireAny(p.getWallet())) {

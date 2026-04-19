@@ -48,10 +48,18 @@ public class GameStateTest {
     }
  
     @Test
-    void constructorRejectsEmptyPlayerList() {
-        assertThrows(IllegalArgumentException.class, () ->
+    void constructorAcceptsEmptyPlayerList() {
+        // used to throw here -- relaxed in M6 so player elimination works
+        assertDoesNotThrow(() ->
             new GameState(fullBank(), fourVisibles(),
                 new Cards(List.of()), List.of()));
+    }
+ 
+    @Test
+    void constructorRejectsNullBank() {
+        assertThrows(IllegalArgumentException.class, () ->
+            new GameState(null, fourVisibles(),
+                new Cards(List.of()), List.of(playerAt(0))));
     }
  
     @Test
@@ -70,6 +78,13 @@ public class GameStateTest {
     void getActivePlayerReturnsFirstPlayer() {
         GameState gs = twoPlayerGame();
         assertEquals(gs.getPlayers().get(0), gs.getActivePlayer());
+    }
+ 
+    @Test
+    void getActivePlayerThrowsWhenNoPlayers() {
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of());
+        assertThrows(IllegalStateException.class, gs::getActivePlayer);
     }
  
     // isGameOver
@@ -95,9 +110,16 @@ public class GameStateTest {
     }
  
     @Test
-    void isGameOverTrueWhenBankEmptyAndNoOnCanBuy() {
+    void isGameOverTrueWhenBankEmptyAndNoOneCanBuy() {
         GameState gs = new GameState(new Pebbles(), fourVisibles(),
             new Cards(List.of()), List.of(playerAt(0)));
+        assertTrue(gs.isGameOver());
+    }
+ 
+    @Test
+    void isGameOverTrueWhenPlayerListEmpty() {
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of());
         assertTrue(gs.isGameOver());
     }
  
@@ -122,6 +144,127 @@ public class GameStateTest {
         GameState gs = new GameState(fullBank(), fourVisibles(),
             new Cards(List.of()), List.of(playerAt(5)));
         assertTrue(gs.toTurnState().getScores().isEmpty());
+    }
+ 
+    @Test
+    void toTurnStateThrowsWhenNoPlayers() {
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of());
+        assertThrows(IllegalStateException.class, gs::toTurnState);
+    }
+ 
+    // withActivePlayerRemoved
+ 
+    @Test
+    void withActivePlayerRemovedReducesPlayerCount() {
+        assertEquals(1,
+            twoPlayerGame().withActivePlayerRemoved().getPlayers().size());
+    }
+ 
+    @Test
+    void withActivePlayerRemovedRemovesFirstPlayer() {
+        PlayerState p1 = playerAt(3);
+        PlayerState p2 = playerAt(7);
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of(p1, p2));
+        assertEquals(p2, gs.withActivePlayerRemoved().getActivePlayer());
+    }
+ 
+    @Test
+    void withActivePlayerRemovedReturnsEmptyStateForLastPlayer() {
+        // had a null pointer here before -- fixed by allowing empty player list
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of(playerAt(0)));
+        GameState result = gs.withActivePlayerRemoved();
+        assertNotNull(result);
+        assertTrue(result.isGameOver());
+        assertTrue(result.getPlayers().isEmpty());
+    }
+ 
+    @Test
+    void withActivePlayerRemovedDoesNotModifyOriginal() {
+        GameState gs = twoPlayerGame();
+        gs.withActivePlayerRemoved();
+        assertEquals(2, gs.getPlayers().size());
+    }
+ 
+    // withUpdatedActivePlayer
+ 
+    @Test
+    void withUpdatedActivePlayerReplacesFirstPlayer() {
+        PlayerState updated = playerAt(10);
+        assertEquals(updated,
+            twoPlayerGame().withUpdatedActivePlayer(updated).getActivePlayer());
+    }
+ 
+    @Test
+    void withUpdatedActivePlayerPreservesOtherPlayers() {
+        PlayerState p1 = playerAt(0);
+        PlayerState p2 = playerAt(5);
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of(p1, p2));
+        assertEquals(p2,
+            gs.withUpdatedActivePlayer(playerAt(99)).getPlayers().get(1));
+    }
+ 
+    @Test
+    void withUpdatedActivePlayerDoesNotModifyOriginal() {
+        GameState gs = twoPlayerGame();
+        gs.withUpdatedActivePlayer(playerAt(99));
+        assertEquals(playerAt(0), gs.getActivePlayer());
+    }
+ 
+    // withRotatedPlayers
+ 
+    @Test
+    void withRotatedPlayersMakesSecondPlayerActive() {
+        PlayerState p1 = playerAt(0);
+        PlayerState p2 = playerAt(5);
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of(p1, p2));
+        assertEquals(p2, gs.withRotatedPlayers().getActivePlayer());
+    }
+ 
+    @Test
+    void withRotatedPlayersSendsFirstPlayerToBack() {
+        PlayerState p1 = playerAt(0);
+        PlayerState p2 = playerAt(5);
+        GameState gs = new GameState(fullBank(), fourVisibles(),
+            new Cards(List.of()), List.of(p1, p2));
+        assertEquals(p1, gs.withRotatedPlayers().getPlayers().get(1));
+    }
+ 
+    @Test
+    void withRotatedPlayersPreservesPlayerCount() {
+        assertEquals(2, twoPlayerGame().withRotatedPlayers().getPlayers().size());
+    }
+ 
+    // withBank
+ 
+    @Test
+    void withBankUpdatesBank() {
+        Pebbles newBank = new Pebbles(List.of(Pebble.YELLOW));
+        assertEquals(newBank, twoPlayerGame().withBank(newBank).getBank());
+    }
+ 
+    // withUpdatedCards
+ 
+    @Test
+    void withUpdatedCardsChangesVisibles() {
+        Cards newVisibles = new Cards(List.of(anyCard()));
+        assertEquals(newVisibles,
+            twoPlayerGame()
+                .withUpdatedCards(newVisibles, new Cards(List.of()))
+                .getVisibles());
+    }
+ 
+    @Test
+    void withUpdatedCardsChangesDeck() {
+        Cards newDeck = new Cards(List.of(anyCard(), anyCard()));
+        assertEquals(newDeck,
+            twoPlayerGame()
+                .withUpdatedCards(fourVisibles(), newDeck)
+                .getDeck());
     }
  
     // equals and hashCode
