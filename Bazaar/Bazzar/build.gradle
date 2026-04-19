@@ -24,14 +24,25 @@ test {
     useJUnitPlatform()
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'xeq.XEq'
-    }
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
+// Helper to build a fat JAR for a given main class
+def fatJar(String jarName, String mainClass) {
+    return tasks.create(jarName, Jar) {
+        archiveFileName = "${jarName}.jar"
+        manifest {
+            attributes 'Main-Class': mainClass
         }
+        from sourceSets.main.output
+        from {
+            configurations.runtimeClasspath.collect {
+                it.isDirectory() ? it : zipTree(it)
+            }
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
+
+// Build xeq.jar with XEq as the entry point
+fatJar('xeq', 'xeq.XEq')
+
+// Build xturn.jar with XTurn as the entry point
+fatJar('xturn', 'xturn.XTurn')
