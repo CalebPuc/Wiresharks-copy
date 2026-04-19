@@ -1,43 +1,43 @@
 # common
  
-This package contains the data representations shared by both the referee
-and the player components of the Bazaar game system.
+Shared data representations used by both the referee and the player.
+Nothing in here should depend on referee or player -- if it does,
+something is wrong with the design.
  
-## Why Common?
+The reason this package exists is that both sides need to talk about
+the same things (pebbles, cards, equations, turn state) without one
+depending on the other. Putting shared stuff in common avoids that.
  
-The referee and player are independent components that may be developed
-by different teams. Both need to reason about the same game pieces —
-pebbles, equations, cards, and turn information — without either depending
-on the other. Placing these shared representations here ensures that neither
-component owns what both need, and that no circular dependencies arise
-between them.
+## Files
  
-No class in this package may reference any class in the `referee` or
-`player` packages.
+**Pebble.java** -- the five colors (RED, WHITE, BLUE, GREEN, YELLOW).
+Everything else builds on this.
  
-## Contents
+**Pebbles.java** -- a multiset of pebbles. Represents wallets, the bank,
+and equation sides. Immutable -- add() and remove() return new instances.
  
-- **`Pebble.java`** — the five pebble colors: RED, WHITE, BLUE, GREEN, YELLOW.
-  The most fundamental type in the system; everything else is built on it.
-- **`Pebbles.java`** — a multiset of pebbles, where color matters but order
-  does not. Used to represent a player's wallet, the bank's supply, and
-  each side of an equation.
-- **`Equation.java`** — a single bidirectional trade between two disjoint
-  pebble collections (1–4 pebbles per side). Either side may be given to
-  receive the other, subject to what the player and bank each possess.
-- **`Equations.java`** — the table of up to 10 equations fixed at the start
-  of a game and visible to all players. Supports filtering to the subset
-  applicable to a given wallet and bank.
-- **`Card.java`** — a single purchasable card displaying exactly 5 pebbles
-  and an optional star. A player may purchase a card if their wallet
-  contains at least the pebbles shown.
-- **`Cards.java`** — an ordered collection of cards. Used to represent both
-  the face-down draw deck and the visible cards on the table.
-- **`PlayerState.java`** — a single player's visible state: their wallet and
-  current score. Used in both TurnState and GameState so that neither the
-  referee nor the player needs to own this definition independently.
-- **`TurnState.java`** — the read-only snapshot the referee sends to the
-  active player at the start of their turn. Contains the bank, the visible
-  cards, the active player's own state, and the scores (not wallets) of
-  the remaining players. Deliberately excludes information the active
-  player is not permitted to know.
+**Equation.java** -- one bidirectional trade between two disjoint pebble
+groups. equals() treats both orientations as the same equation since
+that's what bidirectional means.
+ 
+**Equations.java** -- the table of up to 10 equations for a game.
+filterApplicable() is the main thing the player uses each turn.
+ 
+**Card.java** -- one card with exactly 5 pebbles and an optional star.
+ 
+**Cards.java** -- an ordered list of cards. Used for both the visible
+cards and the face-down deck.
+ 
+**PlayerState.java** -- one player's wallet and score. Lives here (not
+in referee) because TurnState also needs it and TurnState can't import
+from referee.
+ 
+**TurnState.java** -- what the referee sends to the active player at
+the start of their turn. Only includes what the player is allowed to
+know -- other players' scores but not their wallets.
+ 
+**RuleBook.java** -- the rules of the game. Both the referee and the
+player mechanism (M6) need to check legality, so this has to live here
+rather than in referee. Contains legality checks for exchanges, pebble
+requests, and card purchases, plus the scoring table and a deterministic
+pebble picker for testing.
