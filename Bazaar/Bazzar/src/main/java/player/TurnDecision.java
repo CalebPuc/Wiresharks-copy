@@ -7,21 +7,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
  
-/**
- * The decision a strategy makes for one turn: a sequence of pebble
- * exchanges to perform, followed by a sequence of cards to purchase.
+/*
+ * The decision a strategy makes for one turn: an ordered sequence
+ * of exchanges followed by an ordered sequence of card purchases.
  *
- * Both sequences are ordered — the exchanges are applied in the order
- * listed, and the cards are purchased in the order listed.
+ * Also records the total points earned and the player's wallet
+ * after all moves, since the harness and referee both need these.
  *
  * Data representation:
- *   exchanges: an ordered list of equations to apply, each represented
- *              as a pair of Pebbles [give, receive]
- *   purchases: an ordered list of cards to buy
- *   points:    the total points earned from the purchases
- *   wallet:    the player's pebbles after all exchanges and purchases
- *
- * Invariant: points is non-negative; all fields are non-null.
+ *   exchanges: ordered list of exchange steps to perform
+ *   purchases: ordered list of cards to buy
+ *   points:    total points earned from the purchases
+ *   wallet:    the player's pebbles after exchanges and purchases
  */
 public class TurnDecision {
  
@@ -30,14 +27,9 @@ public class TurnDecision {
     private final int                points;
     private final Pebbles            wallet;
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Creates a TurnDecision with the given exchanges, purchases,
-     * points earned, and resulting wallet.
-     */
+    // List<ExchangeStep> List<Card> int Pebbles -> TurnDecision
+    // creates a TurnDecision with the given exchanges, purchases,
+    // total points, and resulting wallet
     public TurnDecision(List<ExchangeStep> exchanges,
                         List<Card> purchases,
                         int points,
@@ -48,55 +40,40 @@ public class TurnDecision {
         this.wallet    = wallet;
     }
  
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns the ordered sequence of exchanges this decision makes.
-     */
+    // TurnDecision -> List<ExchangeStep>
+    // returns the exchanges this decision makes, in order
     public List<ExchangeStep> getExchanges() {
         return exchanges;
     }
  
-    /**
-     * Returns the ordered sequence of cards this decision purchases.
-     */
+    // TurnDecision -> List<Card>
+    // returns the cards this decision purchases, in order
     public List<Card> getPurchases() {
         return purchases;
     }
  
-    /**
-     * Returns the total points earned by this decision's purchases.
-     */
+    // TurnDecision -> int
+    // returns the total points earned by this decision's purchases
     public int getPoints() {
         return points;
     }
  
-    /**
-     * Returns the player's wallet after all exchanges and purchases
-     * in this decision are applied.
-     */
+    // TurnDecision -> Pebbles
+    // returns the player's wallet after all exchanges and purchases
     public Pebbles getWallet() {
         return wallet;
     }
  
-    // -------------------------------------------------------------------------
-    // Scoring helper
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Computes the points earned when purchasing the given card with
-     * the given number of pebbles remaining in the wallet after the
-     * purchase.
-     *
-     * Scoring table from the Bazaar rules:
-     *   pebbles left | plain card | starred card
-     *   3 or more    |     1      |      2
-     *   2            |     2      |      3
-     *   1            |     3      |      5
-     *   0            |     5      |      8
-     */
+    // Card int -> int
+    // returns the points earned when purchasing the given card with
+    // the given number of pebbles remaining in the wallet afterward
+    //
+    // scoring table from the spec:
+    //   pebbles left | plain | starred
+    //   3 or more    |   1   |    2
+    //   2            |   2   |    3
+    //   1            |   3   |    5
+    //   0            |   5   |    8
     public static int score(Card card, int pebblesRemaining) {
         if (card.hasStar()) {
             if (pebblesRemaining >= 3) return 2;
@@ -111,10 +88,7 @@ public class TurnDecision {
         }
     }
  
-    // -------------------------------------------------------------------------
-    // Object overrides
-    // -------------------------------------------------------------------------
- 
+    // TurnDecision -> String
     @Override
     public String toString() {
         return "TurnDecision{exchanges=" + exchanges.size()

@@ -3,31 +3,18 @@ package player;
 import common.Equations;
 import common.TurnState;
  
-/**
- * The strategy interface for a Bazaar player.
+/*
+ * The interface all player strategies implement.
  *
- * A strategy takes a turn state and the table of equations and returns
- * a decision describing which exchanges to perform and which cards to
- * purchase. Different strategies pursue different maximization goals.
- *
- * Implementations must be deterministic — given the same inputs, a
- * strategy must always return the same decision. The referee relies on
- * this property to compare player behavior across runs.
+ * A strategy takes a turn state and the equation table and returns
+ * a decision describing which exchanges to make and which cards
+ * to purchase. The player mechanism holds a strategy and calls it
+ * each turn without caring which implementation it is.
  */
 public interface Strategy {
  
-    /**
-     * Returns a TurnDecision describing the exchanges and card purchases
-     * that this strategy recommends for the given turn state and equations.
-     *
-     * The decision respects the following constraints from the rules:
-     *   - at most 4 exchange steps total
-     *   - a pebble draw is requested only if no exchanges are possible
-     *     and the bank is non-empty (this is handled by the Mechanism,
-     *     not the Strategy)
-     *   - all exchanges must be legal given the wallet and bank at each step
-     *   - all card purchases must be affordable given the wallet after
-     *     exchanges
-     */
+    // Strategy TurnState Equations -> TurnDecision
+    // returns the exchanges and purchases this strategy recommends
+    // for the given turn state and available equations
     TurnDecision takeTurn(TurnState turn, Equations equations);
 }

@@ -1,15 +1,11 @@
 package common;
  
-import java.util.Collections;
-import java.util.List;
- 
-/**
+/*
  * A single card in the Bazaar game.
  *
- * A card displays five pebbles arranged in a circle, optionally decorated
- * with a star in the center. Players purchase cards to earn points; the
- * number of points depends on how many pebbles the player has left after
- * the purchase and whether the card has a star.
+ * A card displays five pebbles and optionally a star. Players
+ * purchase cards to earn points; the points depend on how many
+ * pebbles the player has left after the purchase.
  *
  * Data representation:
  *   pebbles: a Pebbles with exactly 5 total pebbles
@@ -22,16 +18,9 @@ public class Card {
     private final Pebbles pebbles;
     private final boolean hasStar;
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Creates a card with the given pebbles and star status.
-     *
-     * @throws IllegalArgumentException if pebbles does not contain exactly
-     *     5 pebbles
-     */
+    // Pebbles boolean -> Card
+    // creates a card with the given pebbles and star status
+    // throws IllegalArgumentException if pebbles does not have exactly 5
     public Card(Pebbles pebbles, boolean hasStar) {
         if (pebbles == null || pebbles.size() != 5) {
             throw new IllegalArgumentException(
@@ -41,32 +30,16 @@ public class Card {
         this.hasStar = hasStar;
     }
  
-    // -------------------------------------------------------------------------
-    // (6) Determining whether a player can acquire this card
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if the given wallet contains at least the pebbles
-     * displayed on this card.
-     *
-     * Used by a player to determine which visible cards it can purchase,
-     * and by the referee to validate a card purchase request.
-     */
+    // Card Pebbles -> boolean
+    // true if the given wallet has at least the pebbles on this card
+    // used to check if a player can afford to purchase this card
     public boolean canAcquire(Pebbles wallet) {
         return wallet.hasAtLeast(pebbles);
     }
  
-    // -------------------------------------------------------------------------
-    // (7) Rendering this card graphically
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns a text representation of this card, showing its pebbles
-     * and whether it has a star.
-     *
-     * Example: "[ R W B G Y ]  *" for a starred card,
-     *          "[ R W B G Y ]"   for a plain card.
-     */
+    // Card -> String
+    // text representation showing this card's pebbles and star status
+    // example: "[ R W B G Y ]  *" for a starred card
     public String render() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
@@ -80,32 +53,20 @@ public class Card {
         return sb.toString();
     }
  
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns the pebbles displayed on this card.
-     */
+    // Card -> Pebbles
+    // returns the pebbles displayed on this card
     public Pebbles getPebbles() {
         return pebbles;
     }
  
-    /**
-     * Returns true if this card displays a star.
-     */
+    // Card -> boolean
+    // true if this card displays a star
     public boolean hasStar() {
         return hasStar;
     }
  
-    // -------------------------------------------------------------------------
-    // Object overrides
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if this card and {@code that} display the same pebbles
-     * and have the same star status.
-     */
+    // Card Object -> boolean
+    // true if this and 'that' have the same pebbles and star status
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,17 +76,14 @@ public class Card {
             && this.pebbles.equals(that.pebbles);
     }
  
-    /**
-     * Returns a hash code consistent with {@link #equals}.
-     */
+    // Card -> int
+    // hash code consistent with equals
     @Override
     public int hashCode() {
         return 31 * pebbles.hashCode() + (hasStar ? 1 : 0);
     }
  
-    /**
-     * Returns a text representation of this card.
-     */
+    // Card -> String
     @Override
     public String toString() {
         return render();

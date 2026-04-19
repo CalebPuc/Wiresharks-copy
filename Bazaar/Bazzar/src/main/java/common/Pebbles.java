@@ -6,16 +6,16 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
  
-/**
- * A multiset of pebbles — a collection where color matters but order does not,
- * and the same color may appear multiple times.
+/*
+ * A multiset of pebbles -- a collection where color matters but
+ * order does not, and the same color can appear more than once.
  *
- * Used to represent a player's wallet, the bank's supply, and each side
- * of an equation.
+ * Used to represent a player's wallet, the bank's supply, and
+ * each side of an equation.
  *
  * Data representation:
- *   A map from Pebble to a positive integer count. Colors with zero
- *   pebbles are absent from the map entirely.
+ *   counts: a map from Pebble to a positive integer count.
+ *   Colors with zero count are absent from the map entirely.
  *
  * Invariant: all counts are strictly positive.
  */
@@ -23,21 +23,15 @@ public class Pebbles {
  
     private final Map<Pebble, Integer> counts;
  
-    // -------------------------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Creates an empty pebble collection.
-     */
+    // -> Pebbles
+    // creates an empty pebble collection
     public Pebbles() {
         this.counts = new EnumMap<>(Pebble.class);
     }
  
-    /**
-     * Creates a pebble collection from a flat list of colors.
-     * Colors may repeat; order does not matter.
-     */
+    // List<Pebble> -> Pebbles
+    // creates a pebble collection from a flat list
+    // colors may repeat -- order does not matter
     public Pebbles(List<Pebble> pebbles) {
         this.counts = new EnumMap<>(Pebble.class);
         for (Pebble p : pebbles) {
@@ -45,10 +39,9 @@ public class Pebbles {
         }
     }
  
-    /**
-     * Creates a pebble collection from an existing count map.
-     * Colors with a count of zero are ignored.
-     */
+    // Map<Pebble, Integer> -> Pebbles
+    // creates a pebble collection from an existing count map
+    // colors with a count of zero are ignored
     public Pebbles(Map<Pebble, Integer> counts) {
         this.counts = new EnumMap<>(Pebble.class);
         for (Map.Entry<Pebble, Integer> e : counts.entrySet()) {
@@ -58,16 +51,9 @@ public class Pebbles {
         }
     }
  
-    // -------------------------------------------------------------------------
-    // Queries
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if this collection contains at least as many pebbles
-     * of each color as {@code that}.
-     *
-     * Used to determine whether a player can afford a trade or card purchase.
-     */
+    // Pebbles Pebbles -> boolean
+    // true if this collection has at least as many of each color as 'that'
+    // used to check if a player can afford a trade or card purchase
     public boolean hasAtLeast(Pebbles that) {
         for (Map.Entry<Pebble, Integer> e : that.counts.entrySet()) {
             if (this.counts.getOrDefault(e.getKey(), 0) < e.getValue()) {
@@ -77,35 +63,30 @@ public class Pebbles {
         return true;
     }
  
-    /**
-     * Returns the number of pebbles of the given color in this collection.
-     * Returns 0 if the color is absent.
-     */
+    // Pebbles Pebble -> int
+    // returns how many pebbles of the given color are in this collection
+    // returns 0 if the color is absent
     public int countOf(Pebble color) {
         return counts.getOrDefault(color, 0);
     }
  
-    /**
-     * Returns the total number of pebbles across all colors.
-     */
+    // Pebbles -> int
+    // total number of pebbles across all colors
     public int size() {
         int total = 0;
         for (int n : counts.values()) total += n;
         return total;
     }
  
-    /**
-     * Returns true if this collection contains no pebbles of any color.
-     */
+    // Pebbles -> boolean
+    // true if this collection has no pebbles of any color
     public boolean isEmpty() {
         return counts.isEmpty();
     }
  
-    /**
-     * Returns true if this collection and {@code that} share no colors.
-     *
-     * Used to validate that the two sides of an equation are disjoint.
-     */
+    // Pebbles Pebbles -> boolean
+    // true if this collection and 'that' share no colors
+    // used to validate that equation sides are disjoint
     public boolean isDisjointFrom(Pebbles that) {
         for (Pebble p : that.counts.keySet()) {
             if (this.counts.containsKey(p)) return false;
@@ -113,16 +94,9 @@ public class Pebbles {
         return true;
     }
  
-    // -------------------------------------------------------------------------
-    // Transformations
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns a new Pebbles containing all pebbles from both this collection
-     * and {@code that}. Does not modify this collection.
-     *
-     * Used when a player receives pebbles from a trade or bank draw.
-     */
+    // Pebbles Pebbles -> Pebbles
+    // returns a new collection with all pebbles from both this and 'that'
+    // does NOT modify this -- used when a player receives pebbles from a trade
     public Pebbles add(Pebbles that) {
         Map<Pebble, Integer> result = new EnumMap<>(this.counts);
         for (Map.Entry<Pebble, Integer> e : that.counts.entrySet()) {
@@ -131,15 +105,10 @@ public class Pebbles {
         return new Pebbles(result);
     }
  
-    /**
-     * Returns a new Pebbles with the pebbles in {@code that} removed from
-     * this collection. Does not modify this collection.
-     *
-     * @throws IllegalArgumentException if this collection does not contain
-     *     at least as many of each color as {@code that}
-     *
-     * Used when a player pays pebbles for a trade or card purchase.
-     */
+    // Pebbles Pebbles -> Pebbles
+    // returns a new collection with 'that' removed from this
+    // throws IllegalArgumentException if this doesn't have enough of some color
+    // does NOT modify this -- used when a player pays for a trade or card
     public Pebbles remove(Pebbles that) {
         if (!this.hasAtLeast(that)) {
             throw new IllegalArgumentException(
@@ -157,17 +126,9 @@ public class Pebbles {
         return new Pebbles(result);
     }
  
-    // -------------------------------------------------------------------------
-    // Conversion
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns the pebbles in this collection as a flat list, with colors
-     * appearing in the order RED, WHITE, BLUE, GREEN, YELLOW.
-     *
-     * Useful for rendering and for converting to the JSON format required
-     * by the integration test harnesses.
-     */
+    // Pebbles -> List<Pebble>
+    // returns all pebbles as a flat list in canonical order: R W B G Y
+    // used for rendering and for JSON serialization in test harnesses
     public List<Pebble> toList() {
         List<Pebble> result = new ArrayList<>();
         for (Pebble p : Pebble.values()) {
@@ -178,25 +139,15 @@ public class Pebbles {
         return Collections.unmodifiableList(result);
     }
  
-    /**
-     * Returns a read-only view of the underlying color-to-count map.
-     *
-     * Prefer {@link #hasAtLeast}, {@link #countOf}, and {@link #toList}
-     * for most uses. This method exists for cases where direct map access
-     * is genuinely needed.
-     */
+    // Pebbles -> Map<Pebble, Integer>
+    // returns a read-only view of the underlying count map
+    // prefer hasAtLeast, countOf, and toList for most uses
     public Map<Pebble, Integer> getCounts() {
         return Collections.unmodifiableMap(counts);
     }
  
-    // -------------------------------------------------------------------------
-    // Object overrides
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if this collection and {@code that} contain the same
-     * counts of each pebble color.
-     */
+    // Pebbles Object -> boolean
+    // true if this and 'that' have the same counts of each color
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -205,20 +156,16 @@ public class Pebbles {
         return this.counts.equals(that.counts);
     }
  
-    /**
-     * Returns a hash code consistent with {@link #equals}.
-     */
+    // Pebbles -> int
+    // hash code consistent with equals
     @Override
     public int hashCode() {
         return counts.hashCode();
     }
  
-    /**
-     * Returns a text representation of this collection, listing each pebble
-     * by its abbreviation in the order RED, WHITE, BLUE, GREEN, YELLOW.
-     *
-     * Example: a collection of two red and one blue renders as "R R B".
-     */
+    // Pebbles -> String
+    // text representation listing each pebble abbreviation in R W B G Y order
+    // example: two red and one blue -> "R R B"
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -1,31 +1,27 @@
 package common;
  
-/**
+/*
  * One of the five pebble colors in the Bazaar game.
  *
- * Pebbles are the basic unit of currency. Players hold them in wallets,
- * the bank holds a supply of them, and equations specify trades in terms
- * of them.
+ * Pebbles are the basic unit of currency -- players hold them
+ * in wallets, the bank holds a supply, and equations specify
+ * trades in terms of them.
  *
  * Data representation:
- *   An enumerated type with exactly five values: RED, WHITE, BLUE,
- *   GREEN, YELLOW. Each value represents one distinguishable pebble color.
+ *   An enum with exactly five values: RED, WHITE, BLUE, GREEN, YELLOW.
  */
 public enum Pebble {
     RED, WHITE, BLUE, GREEN, YELLOW;
  
-    /**
-     * Returns the single-character abbreviation for this pebble color,
-     * used when rendering equations and cards in text form.
-     */
+    // Pebble -> String
+    // returns the single-character abbreviation for this color
+    // used when rendering equations and cards as text (R, W, B, G, Y)
     public String abbreviation() {
         return this.name().substring(0, 1);
     }
  
-    /**
-     * Returns the hex color string for this pebble color,
-     * used when rendering pebbles graphically.
-     */
+    // Pebble -> String
+    // returns the hex color string for graphical rendering
     public String hexColor() {
         switch (this) {
             case RED:    return "#E74C3C";

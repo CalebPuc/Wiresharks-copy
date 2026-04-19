@@ -6,23 +6,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
  
-/**
- * The referee's complete, private knowledge about a running Bazaar game.
+/*
+ * The referee's complete private knowledge about a running game.
  *
- * GameState is the ground truth of the game. It is never shared directly
- * with players — the referee derives a TurnState from it to share only
- * what the active player is permitted to know.
+ * Never shared directly with players -- the referee derives a
+ * TurnState from it containing only what the active player is
+ * allowed to know.
  *
  * Data representation:
- *   bank:    the pebbles currently available for trading
+ *   bank:    pebbles available for trading
  *   visibles: the four face-up cards players may purchase
- *   deck:    the remaining face-down cards not yet revealed
+ *   deck:    remaining face-down cards not yet revealed
  *   players: all active players in turn order, each with a wallet
- *            and score; the first player in the list is the active
- *            player whose turn it currently is
+ *            and score; the first player is the active player
  *
- * Invariant: bank, visibles, deck, and players are non-null;
- *            players contains at least one PlayerState.
+ * Invariant: bank, visibles, deck, players are non-null;
+ *            players has at least one entry.
  */
 public class GameState {
  
@@ -31,17 +30,9 @@ public class GameState {
     private final Cards             deck;
     private final List<PlayerState> players;
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Creates a GameState with the given bank, visible cards, deck,
-     * and player list.
-     *
-     * @throws IllegalArgumentException if any argument is null or if
-     *     the player list is empty
-     */
+    // Pebbles Cards Cards List<PlayerState> -> GameState
+    // creates a GameState with the given bank, visible cards, deck, and players
+    // throws IllegalArgumentException if any argument is null or players is empty
     public GameState(Pebbles bank,
                      Cards visibles,
                      Cards deck,
@@ -60,59 +51,40 @@ public class GameState {
         this.players  = Collections.unmodifiableList(new ArrayList<>(players));
     }
  
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns the bank's current pebble supply.
-     */
+    // GameState -> Pebbles
+    // returns the bank's current pebble supply
     public Pebbles getBank() {
         return bank;
     }
  
-    /**
-     * Returns the face-up cards available for purchase.
-     */
+    // GameState -> Cards
+    // returns the face-up cards available for purchase
     public Cards getVisibles() {
         return visibles;
     }
  
-    /**
-     * Returns the face-down card deck.
-     */
+    // GameState -> Cards
+    // returns the face-down card deck
     public Cards getDeck() {
         return deck;
     }
  
-    /**
-     * Returns all players in turn order. The first player is the
-     * active player whose turn it currently is.
-     */
+    // GameState -> List<PlayerState>
+    // returns all players in turn order -- first player is the active one
     public List<PlayerState> getPlayers() {
         return players;
     }
  
-    /**
-     * Returns the active player — the first player in the turn order.
-     */
+    // GameState -> PlayerState
+    // returns the active player -- the first in turn order
     public PlayerState getActivePlayer() {
         return players.get(0);
     }
  
-    // -------------------------------------------------------------------------
-    // (1) Determining whether a game is over
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if the game has reached a terminal state.
-     *
-     * The game is over if any of the following conditions hold:
-     *   - all players have been eliminated (player list is empty);
-     *   - any player has 20 or more points;
-     *   - no more cards are available (visibles and deck are both empty); or
-     *   - the bank is empty and no player can purchase any visible card.
-     */
+    // GameState -> boolean
+    // true if the game has reached a terminal state
+    // conditions: all players eliminated; a player has 20+ points;
+    //             no cards remain; or bank is empty and no one can buy
     public boolean isGameOver() {
         if (players.isEmpty()) {
             return true;
@@ -131,19 +103,10 @@ public class GameState {
         return false;
     }
  
-    // -------------------------------------------------------------------------
-    // (2) Extracting the turn state
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns the TurnState derived from this GameState for the active
-     * player — the information the referee will share with the player
-     * whose turn it currently is.
-     *
-     * The TurnState includes the bank, the visible cards, the active
-     * player's own state, and the scores (not wallets) of the remaining
-     * players in turn order.
-     */
+    // GameState -> TurnState
+    // returns the TurnState for the active player -- only what they
+    // are allowed to know: bank, visible cards, their own state,
+    // and the scores (not wallets) of remaining players
     public TurnState toTurnState() {
         PlayerState active = players.get(0);
         List<Integer> otherScores = new ArrayList<>();
@@ -153,16 +116,9 @@ public class GameState {
         return new TurnState(bank, visibles, active, otherScores);
     }
  
-    // -------------------------------------------------------------------------
-    // (3) Rendering the game state graphically
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns a text representation of the full game state, showing
-     * the bank, visible cards, deck size, and all player states.
-     *
-     * Used by the referee to display or log the current state of the game.
-     */
+    // GameState -> String
+    // text representation of the full game state
+    // used by the referee to display or log the current state
     public String render() {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Game State ===\n");
@@ -178,14 +134,8 @@ public class GameState {
         return sb.toString();
     }
  
-    // -------------------------------------------------------------------------
-    // Object overrides
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if this GameState and {@code that} have the same
-     * bank, visible cards, deck, and player list.
-     */
+    // GameState Object -> boolean
+    // true if this and 'that' have the same bank, cards, deck, and players
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -197,9 +147,8 @@ public class GameState {
             && this.players.equals(that.players);
     }
  
-    /**
-     * Returns a hash code consistent with {@link #equals}.
-     */
+    // GameState -> int
+    // hash code consistent with equals
     @Override
     public int hashCode() {
         int result = bank.hashCode();
@@ -209,24 +158,15 @@ public class GameState {
         return result;
     }
  
-    /**
-     * Returns a text representation of this game state.
-     */
+    // GameState -> String
     @Override
     public String toString() {
         return render();
     }
  
-    // -------------------------------------------------------------------------
-    // Private helpers
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if any player currently has enough pebbles to
-     * purchase at least one visible card.
-     *
-     * Used as part of the game-over check.
-     */
+    // GameState -> boolean
+    // true if any player currently has enough pebbles to buy at least
+    // one visible card -- used as part of the game-over check
     private boolean anyPlayerCanBuyCard() {
         for (PlayerState p : players) {
             if (visibles.canAcquireAny(p.getWallet())) {

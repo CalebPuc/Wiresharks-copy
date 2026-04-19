@@ -1,33 +1,24 @@
 package common;
  
-/**
- * The visible state of one player in the Bazaar game: their wallet
- * and their current score.
+/*
+ * The visible state of one player: their wallet and current score.
  *
- * Used in both TurnState (as the active player's state, visible to
- * the player itself) and GameState (as part of the full player list
- * maintained by the referee).
+ * Used in both TurnState (the player's own state) and GameState
+ * (the referee's list of all players). Lives in common so neither
+ * package has to import from the other.
  *
  * Data representation:
  *   wallet: the pebbles this player currently owns
- *   score:  this player's current point total (a non-negative integer)
- *
- * Invariant: score is non-negative.
+ *   score:  this player's current point total (non-negative)
  */
 public class PlayerState {
  
     private final Pebbles wallet;
     private final int     score;
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Creates a PlayerState with the given wallet and score.
-     *
-     * @throws IllegalArgumentException if score is negative
-     */
+    // Pebbles int -> PlayerState
+    // creates a PlayerState with the given wallet and score
+    // throws IllegalArgumentException if score is negative
     public PlayerState(Pebbles wallet, int score) {
         if (wallet == null) {
             throw new IllegalArgumentException("Wallet must not be null.");
@@ -39,70 +30,41 @@ public class PlayerState {
         this.score  = score;
     }
  
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns this player's current pebble collection.
-     */
+    // PlayerState -> Pebbles
+    // returns this player's current pebble collection
     public Pebbles getWallet() {
         return wallet;
     }
  
-    /**
-     * Returns this player's current score.
-     */
+    // PlayerState -> int
+    // returns this player's current score
     public int getScore() {
         return score;
     }
  
-    // -------------------------------------------------------------------------
-    // Transformations
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns a new PlayerState with the given wallet, keeping the same score.
-     * Does not modify this PlayerState.
-     *
-     * Used when the referee updates a player's pebbles after a trade or draw.
-     */
+    // PlayerState Pebbles -> PlayerState
+    // returns a new PlayerState with the given wallet, same score
+    // does NOT modify this -- used when the referee updates a player's pebbles
     public PlayerState withWallet(Pebbles newWallet) {
         return new PlayerState(newWallet, this.score);
     }
  
-    /**
-     * Returns a new PlayerState with the given score added to this one,
-     * keeping the same wallet. Does not modify this PlayerState.
-     *
-     * Used when the referee awards points after a card purchase.
-     */
+    // PlayerState int -> PlayerState
+    // returns a new PlayerState with points added to the score, same wallet
+    // does NOT modify this -- used when the referee awards points
     public PlayerState withAddedScore(int points) {
         return new PlayerState(this.wallet, this.score + points);
     }
  
-    // -------------------------------------------------------------------------
-    // Rendering
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns a text representation of this player's state, showing
-     * their wallet and score.
-     *
-     * Example: "Wallet: R R B  Score: 3"
-     */
+    // PlayerState -> String
+    // text representation showing wallet and score
+    // example: "Wallet: R R B  Score: 3"
     public String render() {
         return "Wallet: " + wallet.toString() + "  Score: " + score;
     }
  
-    // -------------------------------------------------------------------------
-    // Object overrides
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if this PlayerState and {@code that} have the same
-     * wallet and score.
-     */
+    // PlayerState Object -> boolean
+    // true if this and 'that' have the same wallet and score
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,17 +74,14 @@ public class PlayerState {
             && this.wallet.equals(that.wallet);
     }
  
-    /**
-     * Returns a hash code consistent with {@link #equals}.
-     */
+    // PlayerState -> int
+    // hash code consistent with equals
     @Override
     public int hashCode() {
         return 31 * wallet.hashCode() + score;
     }
  
-    /**
-     * Returns a text representation of this player's state.
-     */
+    // PlayerState -> String
     @Override
     public String toString() {
         return render();

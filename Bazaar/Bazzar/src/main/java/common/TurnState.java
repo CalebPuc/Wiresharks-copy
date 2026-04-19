@@ -4,23 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
  
-/**
- * The information the referee shares with the active player at the
- * start of their turn.
+/*
+ * The information the referee shares with the active player at
+ * the start of their turn -- only what the player is allowed to know.
  *
- * A TurnState contains only what the active player is permitted to
- * know about the game — it does not reveal other players' wallets
- * or the face-down card deck.
+ * Does NOT include other players' wallets, only their scores.
+ * Does NOT include the face-down deck.
  *
  * Data representation:
- *   bank:    the pebbles currently available in the bank
- *   visibles: the face-up cards the active player may purchase
+ *   bank:    the bank's current pebble supply
+ *   visibles: the face-up cards available for purchase
  *   active:  the active player's own wallet and score
  *   scores:  the scores of the remaining players in turn order
  *            (does not include the active player's score)
- *
- * Invariant: bank, visibles, and active are non-null; scores is
- *            non-null and contains only non-negative integers.
  */
 public class TurnState {
  
@@ -29,14 +25,10 @@ public class TurnState {
     private final PlayerState   active;
     private final List<Integer> scores;
  
-    // -------------------------------------------------------------------------
-    // Constructor
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Creates a TurnState with the given bank, visible cards, active
-     * player state, and remaining player scores.
-     */
+    // Pebbles Cards PlayerState List<Integer> -> TurnState
+    // creates a TurnState with the given bank, visible cards,
+    // active player state, and remaining player scores
+    // throws IllegalArgumentException if any argument is null
     public TurnState(Pebbles bank,
                      Cards visibles,
                      PlayerState active,
@@ -51,49 +43,33 @@ public class TurnState {
         this.scores   = Collections.unmodifiableList(new ArrayList<>(scores));
     }
  
-    // -------------------------------------------------------------------------
-    // Accessors
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns the bank's current pebble supply.
-     */
+    // TurnState -> Pebbles
+    // returns the bank's current pebble supply
     public Pebbles getBank() {
         return bank;
     }
  
-    /**
-     * Returns the face-up cards available for purchase.
-     */
+    // TurnState -> Cards
+    // returns the face-up cards available for purchase
     public Cards getVisibles() {
         return visibles;
     }
  
-    /**
-     * Returns the active player's wallet and score.
-     */
+    // TurnState -> PlayerState
+    // returns the active player's wallet and score
     public PlayerState getActive() {
         return active;
     }
  
-    /**
-     * Returns the scores of the remaining players in turn order.
-     * Does not include the active player's score.
-     */
+    // TurnState -> List<Integer>
+    // returns the scores of the remaining players in turn order
+    // does not include the active player's score
     public List<Integer> getScores() {
         return scores;
     }
  
-    // -------------------------------------------------------------------------
-    // (4) Rendering the turn state graphically
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns a text representation of this turn state, showing the
-     * bank, visible cards, active player state, and other scores.
-     *
-     * Used to display what the active player knows about the game.
-     */
+    // TurnState -> String
+    // text representation showing the bank, cards, active player, and scores
     public String render() {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Turn State ===\n");
@@ -104,14 +80,8 @@ public class TurnState {
         return sb.toString();
     }
  
-    // -------------------------------------------------------------------------
-    // Object overrides
-    // -------------------------------------------------------------------------
- 
-    /**
-     * Returns true if this TurnState and {@code that} have the same
-     * bank, visible cards, active player state, and remaining scores.
-     */
+    // TurnState Object -> boolean
+    // true if this and 'that' have the same bank, cards, active player, and scores
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,9 +93,8 @@ public class TurnState {
             && this.scores.equals(that.scores);
     }
  
-    /**
-     * Returns a hash code consistent with {@link #equals}.
-     */
+    // TurnState -> int
+    // hash code consistent with equals
     @Override
     public int hashCode() {
         int result = bank.hashCode();
@@ -135,9 +104,7 @@ public class TurnState {
         return result;
     }
  
-    /**
-     * Returns a text representation of this turn state.
-     */
+    // TurnState -> String
     @Override
     public String toString() {
         return render();
