@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="player.StrategyTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-04-19T23:12:11" hostname="MoreRemoteChaos" time="0.005">
+  <properties/>
+  <testcase name="neverExceedsFourExchanges()" classname="player.StrategyTest" time="0.001"/>
+  <testcase name="pointsStrategyReturnsZeroWhenNothingAffordable()" classname="player.StrategyTest" time="0.0"/>
+  <testcase name="sizeStrategyBuysMultipleCards()" classname="player.StrategyTest" time="0.0"/>
+  <testcase name="sizeStrategyPrefersMoreCardsOverMorePoints()" classname="player.StrategyTest" time="0.001"/>
+  <testcase name="pointsStrategyBuysAffordableCard()" classname="player.StrategyTest" time="0.0"/>
+  <testcase name="pointsStrategyPrefersStarCard()" classname="player.StrategyTest" time="0.0"/>
+  <testcase name="pointsStrategyUsesExchangeToAffordCard()" classname="player.StrategyTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.TurnStateTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-04-19T23:12:11" hostname="MoreRemoteChaos" time="0.009">
+  <properties/>
+  <testcase name="getBankReturnsBank()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="getScoresReturnsScores()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="equalTurnStatesAreEqual()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="differentBanksNotEqual()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="getActiveReturnsActivePlayer()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="getVisiblesReturnsCards()" classname="common.TurnStateTest" time="0.001"/>
+  <testcase name="getScoresIsUnmodifiable()" classname="common.TurnStateTest" time="0.001"/>
+  <testcase name="constructorAcceptsValidArguments()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="equalTurnStatesHaveSameHashCode()" classname="common.TurnStateTest" time="0.001"/>
+  <testcase name="constructorRejectsNullBank()" classname="common.TurnStateTest" time="0.0"/>
+  <testcase name="constructorAcceptsEmptyScores()" classname="common.TurnStateTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

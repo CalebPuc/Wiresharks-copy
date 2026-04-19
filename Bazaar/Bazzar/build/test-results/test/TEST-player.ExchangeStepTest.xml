@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="player.ExchangeStepTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-04-19T23:12:11" hostname="MoreRemoteChaos" time="0.008">
+  <properties/>
+  <testcase name="constructorAcceptsLeftToRight()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="getReceivedReturnsRightSideForLTR()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="equalStepsHaveSameHashCode()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="constructorRejectsNullEquation()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="isLeftToRightFalseForRTL()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="sameEquationDifferentDirectionNotEqual()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="getGivenReturnsLeftSideForLTR()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="getReceivedReturnsLeftSideForRTL()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="getGivenReturnsRightSideForRTL()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="sameEquationAndDirectionAreEqual()" classname="player.ExchangeStepTest" time="0.001"/>
+  <testcase name="isLeftToRightTrueForLTR()" classname="player.ExchangeStepTest" time="0.0"/>
+  <testcase name="givenAndReceivedAreOpposites()" classname="player.ExchangeStepTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

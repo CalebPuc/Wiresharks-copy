@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.EquationTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-04-19T23:12:11" hostname="MoreRemoteChaos" time="0.015">
+  <properties/>
+  <testcase name="equalsSymmetricForSameEquation()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="constructorAcceptsValidEquation()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="constructorRejectsSideWithMoreThanFourPebbles()" classname="common.EquationTest" time="0.003"/>
+  <testcase name="constructorRejectsEmptySide()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyLeftToRightTrueWhenAffordable()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="equalsReturnsFalseForDifferentEquation()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyFalseWhenNeitherDirectionWorks()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyRightToLeftTrueWhenAffordable()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyLeftToRightFalseWhenWalletMissing()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyTrueIfEitherDirectionWorks()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="hashCodeSameForBothOrientations()" classname="common.EquationTest" time="0.001"/>
+  <testcase name="canApplyLeftToRightFalseWhenBankMissing()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="canApplyRightToLeftFalseWhenWalletMissing()" classname="common.EquationTest" time="0.0"/>
+  <testcase name="constructorRejectsSharedColors()" classname="common.EquationTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
