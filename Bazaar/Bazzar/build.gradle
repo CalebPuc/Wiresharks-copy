@@ -15,9 +15,23 @@ dependencies {
     // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    // Gson package
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 test {
     // Tell Gradle to use the JUnit 5 platform to discover and run tests
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'xeq.XEq'
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
