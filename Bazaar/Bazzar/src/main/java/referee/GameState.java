@@ -37,10 +37,6 @@ public class GameState {
                      Cards visibles,
                      Cards deck,
                      List<PlayerState> players) {
-        if (bank == null || visibles == null || deck == null || players == null) {
-            throw new IllegalArgumentException(
-                "GameState fields must not be null.");
-        }
         this.bank     = bank;
         this.visibles = visibles;
         this.deck     = deck;

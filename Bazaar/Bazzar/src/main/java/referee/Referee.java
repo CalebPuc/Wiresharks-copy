@@ -35,9 +35,6 @@ public class Referee {
     // Equations -> Referee
     // creates a referee for a game with the given equation table
     public Referee(Equations equations) {
-        if (equations == null) {
-            throw new IllegalArgumentException("Equations must not be null.");
-        }
         this.equations = equations;
     }
  

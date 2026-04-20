@@ -33,10 +33,6 @@ public class TurnState {
                      Cards visibles,
                      PlayerState active,
                      List<Integer> scores) {
-        if (bank == null || visibles == null || active == null || scores == null) {
-            throw new IllegalArgumentException(
-                "TurnState fields must not be null.");
-        }
         this.bank     = bank;
         this.visibles = visibles;
         this.active   = active;

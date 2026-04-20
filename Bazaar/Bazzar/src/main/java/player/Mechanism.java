@@ -30,10 +30,6 @@ public class Mechanism {
     // creates a player mechanism with the given name and strategy
     // throws IllegalArgumentException if either argument is null
     public Mechanism(String name, Strategy strategy) {
-        if (name == null || strategy == null) {
-            throw new IllegalArgumentException(
-                "Name and strategy must not be null.");
-        }
         this.name     = name;
         this.strategy = strategy;
     }

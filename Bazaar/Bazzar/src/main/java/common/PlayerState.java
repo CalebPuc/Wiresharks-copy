@@ -14,15 +14,12 @@ package common;
 public class PlayerState {
  
     private final Pebbles wallet;
-    private final int     score;
+    private final int score;
  
     // Pebbles int -> PlayerState
     // creates a PlayerState with the given wallet and score
     // throws IllegalArgumentException if score is negative
     public PlayerState(Pebbles wallet, int score) {
-        if (wallet == null) {
-            throw new IllegalArgumentException("Wallet must not be null.");
-        }
         if (score < 0) {
             throw new IllegalArgumentException("Score must be non-negative.");
         }
