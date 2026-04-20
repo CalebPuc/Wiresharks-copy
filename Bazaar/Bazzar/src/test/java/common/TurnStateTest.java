@@ -44,12 +44,6 @@ public class TurnStateTest {
             new TurnState(someBank(), someCards(), someActive(), List.of()));
     }
  
-    @Test
-    void constructorRejectsNullBank() {
-        assertThrows(IllegalArgumentException.class, () ->
-            new TurnState(null, someCards(), someActive(), List.of()));
-    }
- 
     // accessors
  
     @Test

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="player.TurnDecisionTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:14:03" hostname="MoreRemoteChaos" time="0.006">
+<testsuite name="player.TurnDecisionTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-04-20T01:09:24" hostname="MoreRemoteChaos" time="0.006">
   <properties/>
-  <testcase name="starCardWith0PebblesGives8()" classname="player.TurnDecisionTest" time="0.001"/>
+  <testcase name="starCardWith0PebblesGives8()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="getWalletReturnsCorrectWallet()" classname="player.TurnDecisionTest" time="0.0"/>
-  <testcase name="getExchangesIsUnmodifiable()" classname="player.TurnDecisionTest" time="0.001"/>
+  <testcase name="getExchangesIsUnmodifiable()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="starCardWith1PebbleGives5()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="starCardWith3OrMorePebblesGives2()" classname="player.TurnDecisionTest" time="0.0"/>
-  <testcase name="getPurchasesIsUnmodifiable()" classname="player.TurnDecisionTest" time="0.001"/>
+  <testcase name="getPurchasesIsUnmodifiable()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="plainCardWith3OrMorePebblesGives1()" classname="player.TurnDecisionTest" time="0.0"/>
-  <testcase name="getPointsReturnsCorrectPoints()" classname="player.TurnDecisionTest" time="0.001"/>
+  <testcase name="getPointsReturnsCorrectPoints()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="plainCardWith2PebblesGives2()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="starCardWith2PebblesGives3()" classname="player.TurnDecisionTest" time="0.0"/>
   <testcase name="plainCardWith1PebbleGives3()" classname="player.TurnDecisionTest" time="0.0"/>

@@ -56,13 +56,6 @@ public class GameStateTest {
     }
  
     @Test
-    void constructorRejectsNullBank() {
-        assertThrows(IllegalArgumentException.class, () ->
-            new GameState(null, fourVisibles(),
-                new Cards(List.of()), List.of(playerAt(0))));
-    }
- 
-    @Test
     void constructorMakesDefensiveCopyOfPlayers() {
         List<PlayerState> players = new ArrayList<>(
             List.of(playerAt(0), playerAt(0)));

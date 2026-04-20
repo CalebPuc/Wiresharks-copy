@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="common.PebblesTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:14:03" hostname="MoreRemoteChaos" time="0.02">
+<testsuite name="common.PebblesTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2026-04-20T01:09:24" hostname="MoreRemoteChaos" time="0.018">
   <properties/>
   <testcase name="addDoesNotModifyOriginal()" classname="common.PebblesTest" time="0.0"/>
   <testcase name="hasAtLeastReturnsTrueWhenExact()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="hasAtLeastReturnsTrueWhenMore()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="hasAtLeastReturnsTrueWhenMore()" classname="common.PebblesTest" time="0.001"/>
   <testcase name="removeDoesNotModifyOriginal()" classname="common.PebblesTest" time="0.0"/>
   <testcase name="differentCollectionsAreNotEqual()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="hasAtLeastReturnsFalseWhenColorAbsent()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="hasAtLeastReturnsFalseWhenColorAbsent()" classname="common.PebblesTest" time="0.001"/>
   <testcase name="disjointReturnsFalseWhenSharedColor()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="disjointReturnsTrueWhenOtherIsEmpty()" classname="common.PebblesTest" time="0.001"/>
-  <testcase name="hasAtLeastReturnsFalseWhenNotEnough()" classname="common.PebblesTest" time="0.001"/>
+  <testcase name="disjointReturnsTrueWhenOtherIsEmpty()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="hasAtLeastReturnsFalseWhenNotEnough()" classname="common.PebblesTest" time="0.0"/>
   <testcase name="sizeReturnsCorrectTotal()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="removeAllLeavesEmpty()" classname="common.PebblesTest" time="0.001"/>
+  <testcase name="removeAllLeavesEmpty()" classname="common.PebblesTest" time="0.0"/>
   <testcase name="sizeOfEmptyIsZero()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="toListReturnsAllPebbles()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="toListReturnsAllPebbles()" classname="common.PebblesTest" time="0.001"/>
   <testcase name="disjointReturnsTrueWhenNoSharedColors()" classname="common.PebblesTest" time="0.001"/>
-  <testcase name="addReturnsCombinedCollection()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="toListIsInCanonicalOrder()" classname="common.PebblesTest" time="0.001"/>
+  <testcase name="addReturnsCombinedCollection()" classname="common.PebblesTest" time="0.001"/>
+  <testcase name="toListIsInCanonicalOrder()" classname="common.PebblesTest" time="0.002"/>
   <testcase name="isEmptyTrueForEmptyCollection()" classname="common.PebblesTest" time="0.0"/>
   <testcase name="listConstructorCounts()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="removeReturnsSmallerCollection()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="removeReturnsSmallerCollection()" classname="common.PebblesTest" time="0.001"/>
   <testcase name="equalCollectionsAreEqual()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="isEmptyFalseForNonEmpty()" classname="common.PebblesTest" time="0.0"/>
-  <testcase name="emptyConstructorProducesEmptyCollection()" classname="common.PebblesTest" time="0.001"/>
-  <testcase name="removeThrowsWhenNotEnough()" classname="common.PebblesTest" time="0.001"/>
+  <testcase name="isEmptyFalseForNonEmpty()" classname="common.PebblesTest" time="0.001"/>
+  <testcase name="emptyConstructorProducesEmptyCollection()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="removeThrowsWhenNotEnough()" classname="common.PebblesTest" time="0.0"/>
   <testcase name="addWithEmptyReturnsSameContents()" classname="common.PebblesTest" time="0.001"/>
-  <testcase name="hasAtLeastReturnsTrueForEmptyRequirement()" classname="common.PebblesTest" time="0.001"/>
-  <testcase name="equalCollectionsHaveSameHashCode()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="hasAtLeastReturnsTrueForEmptyRequirement()" classname="common.PebblesTest" time="0.0"/>
+  <testcase name="equalCollectionsHaveSameHashCode()" classname="common.PebblesTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

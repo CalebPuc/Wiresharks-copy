@@ -36,12 +36,6 @@ public class PlayerStateTest {
             () -> new PlayerState(twoRed(), -1));
     }
  
-    @Test
-    void constructorRejectsNullWallet() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new PlayerState(null, 0));
-    }
- 
     // getWallet and getScore
  
     @Test

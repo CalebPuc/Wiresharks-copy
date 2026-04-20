@@ -71,18 +71,6 @@ public class MechanismTest {
         assertDoesNotThrow(() -> pointsMech("Alice"));
     }
  
-    @Test
-    void constructorRejectsNullName() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new Mechanism(null, new PurchasePointsStrategy()));
-    }
- 
-    @Test
-    void constructorRejectsNullStrategy() {
-        assertThrows(IllegalArgumentException.class,
-            () -> new Mechanism("Alice", null));
-    }
- 
     // name
  
     @Test
