@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="player.MechanismTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:00:26" hostname="MoreRemoteChaos" time="0.025">
+  <properties/>
+  <testcase name="sizeMechanismBuysTwoCardsWhenAffordable()" classname="player.MechanismTest" time="0.009"/>
+  <testcase name="nameReturnsCorrectName()" classname="player.MechanismTest" time="0.007"/>
+  <testcase name="requestPurchasesBuysAffordableCard()" classname="player.MechanismTest" time="0.001"/>
+  <testcase name="wantsPebbleFalseWhenExchangesPossible()" classname="player.MechanismTest" time="0.0"/>
+  <testcase name="requestExchangesReturnsListOfPairs()" classname="player.MechanismTest" time="0.001"/>
+  <testcase name="takeTurnReturnsNonNullDecision()" classname="player.MechanismTest" time="0.001"/>
+  <testcase name="requestPurchasesReturnsNonNull()" classname="player.MechanismTest" time="0.0"/>
+  <testcase name="wantsPebbleTrueWhenNoExchangesPossible()" classname="player.MechanismTest" time="0.0"/>
+  <testcase name="constructorRejectsNullStrategy()" classname="player.MechanismTest" time="0.0"/>
+  <testcase name="takeTurnDelegatesToStrategy()" classname="player.MechanismTest" time="0.0"/>
+  <testcase name="constructorAcceptsValidArguments()" classname="player.MechanismTest" time="0.001"/>
+  <testcase name="requestPurchasesEmptyWhenNothingAffordable()" classname="player.MechanismTest" time="0.0"/>
+  <testcase name="requestExchangesEmptyWhenNoneNeeded()" classname="player.MechanismTest" time="0.001"/>
+  <testcase name="constructorRejectsNullName()" classname="player.MechanismTest" time="0.001"/>
+  <testcase name="wantsPebbleFalseWhenBankEmpty()" classname="player.MechanismTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

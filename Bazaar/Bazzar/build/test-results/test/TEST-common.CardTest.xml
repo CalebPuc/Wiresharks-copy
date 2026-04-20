@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="common.CardTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:00:25" hostname="MoreRemoteChaos" time="0.085">
+  <properties/>
+  <testcase name="plainAndStarNotEqual()" classname="common.CardTest" time="0.051"/>
+  <testcase name="canAcquireTrueWhenWalletHasExactAmount()" classname="common.CardTest" time="0.004"/>
+  <testcase name="hasStarFalseForPlainCard()" classname="common.CardTest" time="0.003"/>
+  <testcase name="equalCardsAreEqual()" classname="common.CardTest" time="0.003"/>
+  <testcase name="constructorRejectsFewerThanFivePebbles()" classname="common.CardTest" time="0.006"/>
+  <testcase name="equalCardsHaveSameHashCode()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorAcceptsExactlyFivePebbles()" classname="common.CardTest" time="0.006"/>
+  <testcase name="hasStarTrueForStarCard()" classname="common.CardTest" time="0.001"/>
+  <testcase name="constructorRejectsMoreThanFivePebbles()" classname="common.CardTest" time="0.0"/>
+  <testcase name="canAcquireFalseWhenWalletTooSmall()" classname="common.CardTest" time="0.001"/>
+  <testcase name="canAcquireTrueWhenWalletHasMore()" classname="common.CardTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
