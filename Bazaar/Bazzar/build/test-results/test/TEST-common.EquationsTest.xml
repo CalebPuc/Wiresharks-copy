@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="common.EquationsTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:00:26" hostname="MoreRemoteChaos" time="0.012">
+<testsuite name="common.EquationsTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:14:03" hostname="MoreRemoteChaos" time="0.01">
   <properties/>
-  <testcase name="sizeReturnsCorrectCount()" classname="common.EquationsTest" time="0.001"/>
-  <testcase name="filterReturnsEmptyWhenNoneApplicable()" classname="common.EquationsTest" time="0.001"/>
+  <testcase name="sizeReturnsCorrectCount()" classname="common.EquationsTest" time="0.0"/>
+  <testcase name="filterReturnsEmptyWhenNoneApplicable()" classname="common.EquationsTest" time="0.0"/>
   <testcase name="constructorAcceptsEmptyTable()" classname="common.EquationsTest" time="0.001"/>
   <testcase name="isEmptyTrueForEmptyTable()" classname="common.EquationsTest" time="0.0"/>
   <testcase name="equalTablesHaveSameHashCode()" classname="common.EquationsTest" time="0.0"/>
-  <testcase name="equalTablesAreEqual()" classname="common.EquationsTest" time="0.0"/>
-  <testcase name="differentTablesAreNotEqual()" classname="common.EquationsTest" time="0.0"/>
-  <testcase name="constructorRejectsMoreThanTenEquations()" classname="common.EquationsTest" time="0.002"/>
-  <testcase name="constructorAcceptsValidTable()" classname="common.EquationsTest" time="0.001"/>
+  <testcase name="equalTablesAreEqual()" classname="common.EquationsTest" time="0.001"/>
+  <testcase name="differentTablesAreNotEqual()" classname="common.EquationsTest" time="0.001"/>
+  <testcase name="constructorRejectsMoreThanTenEquations()" classname="common.EquationsTest" time="0.001"/>
+  <testcase name="constructorAcceptsValidTable()" classname="common.EquationsTest" time="0.0"/>
   <testcase name="filterReturnsApplicableEquation()" classname="common.EquationsTest" time="0.001"/>
   <testcase name="filterReturnsAllWhenAllApplicable()" classname="common.EquationsTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

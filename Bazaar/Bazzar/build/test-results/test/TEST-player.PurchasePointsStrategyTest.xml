@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="player.PurchasePointsStrategyTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:00:26" hostname="MoreRemoteChaos" time="0.007">
+<testsuite name="player.PurchasePointsStrategyTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:14:03" hostname="MoreRemoteChaos" time="0.006">
   <properties/>
   <testcase name="prefersStarCardOverPlainWhenMorePoints()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
-  <testcase name="neverExceedsFourExchanges()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
-  <testcase name="fewerExchangesPreferredWhenOutcomesEqual()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
-  <testcase name="buysAffordableCardDirectly()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
-  <testcase name="usesExchangeToEnableCardPurchase()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
-  <testcase name="handlesEmptyVisibles()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="neverExceedsFourExchanges()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="fewerExchangesPreferredWhenOutcomesEqual()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="buysAffordableCardDirectly()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="usesExchangeToEnableCardPurchase()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
+  <testcase name="handlesEmptyVisibles()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
   <testcase name="earnsZeroWhenNothingAffordable()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
-  <testcase name="doesNotBuyUnaffordableCard()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
+  <testcase name="doesNotBuyUnaffordableCard()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
   <testcase name="returnsNonNullDecision()" classname="player.PurchasePointsStrategyTest" time="0.0"/>
   <testcase name="plainCardScoreCorrectAtZeroPebbles()" classname="player.PurchasePointsStrategyTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

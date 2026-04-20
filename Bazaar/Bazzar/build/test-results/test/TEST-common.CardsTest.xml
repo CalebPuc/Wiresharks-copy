@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="common.CardsTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:00:26" hostname="MoreRemoteChaos" time="0.016">
+<testsuite name="common.CardsTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-04-20T00:14:03" hostname="MoreRemoteChaos" time="0.015">
   <properties/>
-  <testcase name="differentCollectionsAreNotEqual()" classname="common.CardsTest" time="0.0"/>
-  <testcase name="constructorAcceptsNonEmptyList()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="differentCollectionsAreNotEqual()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="constructorAcceptsNonEmptyList()" classname="common.CardsTest" time="0.001"/>
   <testcase name="sizeReturnsCorrectCount()" classname="common.CardsTest" time="0.0"/>
   <testcase name="canAcquireAnyTrueWhenAffordable()" classname="common.CardsTest" time="0.0"/>
   <testcase name="getFirstThrowsOnEmpty()" classname="common.CardsTest" time="0.001"/>
-  <testcase name="removeFirstReducesSizeByOne()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="removeFirstReducesSizeByOne()" classname="common.CardsTest" time="0.001"/>
   <testcase name="canAcquireAnyFalseWhenNoneAffordable()" classname="common.CardsTest" time="0.001"/>
-  <testcase name="isEmptyTrueForEmptyCollection()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="isEmptyTrueForEmptyCollection()" classname="common.CardsTest" time="0.0"/>
   <testcase name="canAcquireAnyFalseForEmptyCollection()" classname="common.CardsTest" time="0.001"/>
   <testcase name="equalCollectionsAreEqual()" classname="common.CardsTest" time="0.001"/>
-  <testcase name="getFirstReturnsFirstCard()" classname="common.CardsTest" time="0.001"/>
-  <testcase name="constructorAcceptsEmptyList()" classname="common.CardsTest" time="0.001"/>
-  <testcase name="removeFirstThrowsOnEmpty()" classname="common.CardsTest" time="0.001"/>
-  <testcase name="removeFirstDoesNotModifyOriginal()" classname="common.CardsTest" time="0.001"/>
+  <testcase name="getFirstReturnsFirstCard()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="constructorAcceptsEmptyList()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="removeFirstThrowsOnEmpty()" classname="common.CardsTest" time="0.0"/>
+  <testcase name="removeFirstDoesNotModifyOriginal()" classname="common.CardsTest" time="0.0"/>
   <testcase name="equalCollectionsHaveSameHashCode()" classname="common.CardsTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
