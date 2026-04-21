@@ -92,7 +92,7 @@ public class Equations {
     }
  
     // Equations Object -> boolean
-    // true if this and 'that' contain the same equations in the same order
+    // true if this table and that table contain the same equations in the same order
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -112,7 +112,7 @@ public class Cards {
     }
  
     // Cards Object -> boolean
-    // true if this and 'that' contain the same cards in the same order
+    // true if this collection and that collection contain the same cards in the same order
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

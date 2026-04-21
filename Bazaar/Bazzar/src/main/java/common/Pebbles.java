@@ -52,7 +52,7 @@ public class Pebbles {
     }
  
     // Pebbles Pebbles -> boolean
-    // true if this collection has at least as many of each color as 'that'
+    // true if this collection has at least as many of each color as that collection
     // used to check if a player can afford a trade or card purchase
     public boolean hasAtLeast(Pebbles that) {
         for (Map.Entry<Pebble, Integer> e : that.counts.entrySet()) {
@@ -85,7 +85,7 @@ public class Pebbles {
     }
  
     // Pebbles Pebbles -> boolean
-    // true if this collection and 'that' share no colors
+    // true if this collection and that collection share no colors
     // used to validate that equation sides are disjoint
     public boolean isDisjointFrom(Pebbles that) {
         for (Pebble p : that.counts.keySet()) {
@@ -95,7 +95,7 @@ public class Pebbles {
     }
  
     // Pebbles Pebbles -> Pebbles
-    // returns a new collection with all pebbles from both this and 'that'
+    // returns a new collection with all pebbles from both this collection and that collection
     // does NOT modify this -- used when a player receives pebbles from a trade
     public Pebbles add(Pebbles that) {
         Map<Pebble, Integer> result = new EnumMap<>(this.counts);
@@ -106,8 +106,8 @@ public class Pebbles {
     }
  
     // Pebbles Pebbles -> Pebbles
-    // returns a new collection with 'that' removed from this
-    // throws IllegalArgumentException if this doesn't have enough of some color
+    // returns a new collection with that collection removed from this collection
+    // throws IllegalArgumentException if this collection doesn't have enough of some color
     // does NOT modify this -- used when a player pays for a trade or card
     public Pebbles remove(Pebbles that) {
         if (!this.hasAtLeast(that)) {
@@ -137,13 +137,6 @@ public class Pebbles {
             }
         }
         return Collections.unmodifiableList(result);
-    }
- 
-    // Pebbles -> Map<Pebble, Integer>
-    // returns a read-only view of the underlying count map
-    // prefer hasAtLeast, countOf, and toList for most uses
-    public Map<Pebble, Integer> getCounts() {
-        return Collections.unmodifiableMap(counts);
     }
  
     // Pebbles Object -> boolean

@@ -74,7 +74,7 @@ public class Equation {
     }
  
     // Equation Object -> boolean
-    // true if this and 'that' represent the same trade
+    // true if this and that equation represent the same trade
     // two equations are equal if their sides match in either orientation
     // since an equation is bidirectional
     @Override
