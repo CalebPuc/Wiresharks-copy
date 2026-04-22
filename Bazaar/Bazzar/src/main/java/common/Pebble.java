@@ -3,7 +3,7 @@ package common;
 /*
  * One of the five pebble colors in the Bazaar game.
  *
- * Pebbles are the basic unit of currency -- players hold them
+ * Pebbles are the basic unit of currency: players hold them
  * in wallets, the bank holds a supply, and equations specify
  * trades in terms of them.
  *

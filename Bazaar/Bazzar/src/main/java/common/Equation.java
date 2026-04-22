@@ -1,7 +1,7 @@
 package common;
  
 /*
- * A single equation in the Bazaar game -- a bidirectional trade
+ * A single equation in the Bazaar game: a bidirectional trade
  * between two collections of pebbles.
  *
  * Either side can be given to receive the other, subject to what
@@ -87,7 +87,7 @@ public class Equation {
     }
  
     // Equation -> int
-    // hash code consistent with equals -- uses addition so both
+    // hash code consistent with equals: uses addition so both
     // orientations of the same equation produce the same hash
     @Override
     public int hashCode() {

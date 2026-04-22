@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
  
 /*
- * A multiset of pebbles -- a collection where color matters but
+ * A multiset of pebbles: a collection where color matters but
  * order does not, and the same color can appear more than once.
  *
  * Used to represent a player's wallet, the bank's supply, and
@@ -31,7 +31,8 @@ public class Pebbles {
  
     // List<Pebble> -> Pebbles
     // creates a pebble collection from a flat list
-    // colors may repeat -- order does not matter
+    // colors may repeat 
+    // order does not matter
     public Pebbles(List<Pebble> pebbles) {
         this.counts = new EnumMap<>(Pebble.class);
         for (Pebble p : pebbles) {
@@ -96,7 +97,8 @@ public class Pebbles {
  
     // Pebbles Pebbles -> Pebbles
     // returns a new collection with all pebbles from both this collection and that collection
-    // does NOT modify this -- used when a player receives pebbles from a trade
+    // does NOT modify this  
+    // used when a player receives pebbles from a trade
     public Pebbles add(Pebbles that) {
         Map<Pebble, Integer> result = new EnumMap<>(this.counts);
         for (Map.Entry<Pebble, Integer> e : that.counts.entrySet()) {
@@ -108,7 +110,8 @@ public class Pebbles {
     // Pebbles Pebbles -> Pebbles
     // returns a new collection with that collection removed from this collection
     // throws IllegalArgumentException if this collection doesn't have enough of some color
-    // does NOT modify this -- used when a player pays for a trade or card
+    // does NOT modify this
+    // used when a player pays for a trade or card
     public Pebbles remove(Pebbles that) {
         if (!this.hasAtLeast(that)) {
             throw new IllegalArgumentException(

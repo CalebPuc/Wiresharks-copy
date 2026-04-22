@@ -9,7 +9,7 @@ import java.util.Random;
  * An ordered collection of cards in the Bazaar game.
  *
  * Used for both the face-down draw deck and the visible cards
- * on the table. Order matters -- the first card is the next
+ * on the table. Order matters: the first card is the next
  * one to be drawn or the first visible card.
  *
  * Data representation:
@@ -101,7 +101,8 @@ public class Cards {
  
     // Cards -> Cards
     // returns a new Cards with the first card removed
-    // does NOT modify this -- used when the referee draws a card
+    // does NOT modify this
+    // used when the referee draws a card
     // throws IllegalStateException if this collection is empty
     public Cards removeFirst() {
         if (cards.isEmpty()) {

@@ -15,7 +15,7 @@ import java.util.List;
  *
  * Implements the Strategy interface.
  *
- * NOTE: this is almost identical to PurchasePointsStrategy -- the only
+ * NOTE: this is almost identical to PurchasePointsStrategy: the only
  * difference is the comparison in takeTurn. Should probably refactor
  * the shared search logic at some point.
  */
@@ -26,7 +26,7 @@ public class PurchaseSizeStrategy implements Strategy {
     // TurnState Equations -> TurnDecision
     // returns the exchanges and purchases that maximize card count this turn
     // ties broken by: fewest exchanges, smallest card sequence,
-    // smallest exchange sequence (per spec)
+    // smallest exchange sequence
     @Override
     public TurnDecision takeTurn(TurnState turn, Equations equations) {
         Pebbles wallet = turn.getActive().getWallet();
@@ -137,7 +137,7 @@ public class PurchaseSizeStrategy implements Strategy {
     }
  
     // TurnDecision TurnDecision -> TurnDecision
-    // returns whichever decision wins under the spec's tie-breaking rules:
+    // returns whichever decision wins under the instructions' tie-breaking rules:
     //   1. fewer exchanges wins
     //   2. smaller card sequence wins
     //   3. smaller exchange sequence wins

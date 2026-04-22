@@ -4,7 +4,7 @@ import common.Equation;
 import common.Pebbles;
  
 /*
- * One step in an exchange sequence -- an equation applied in
+ * One step in an exchange sequence: an equation applied in
  * a specific direction.
  *
  * Needed because an equation is bidirectional, so we have to

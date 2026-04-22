@@ -67,13 +67,6 @@ public class TurnDecision {
     // Card int -> int
     // returns the points earned when purchasing the given card with
     // the given number of pebbles remaining in the wallet afterward
-    //
-    // scoring table from the spec:
-    //   pebbles left | plain | starred
-    //   3 or more    |   1   |    2
-    //   2            |   2   |    3
-    //   1            |   3   |    5
-    //   0            |   5   |    8
     public static int score(Card card, int pebblesRemaining) {
         if (card.hasStar()) {
             if (pebblesRemaining >= 3) return 2;

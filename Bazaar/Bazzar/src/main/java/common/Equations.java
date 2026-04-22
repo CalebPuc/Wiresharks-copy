@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
  
 /*
- * The table of equations in the Bazaar game -- a collection of up
+ * The table of equations in the Bazaar game: a collection of up
  * to 10 equations fixed at the start of a game and visible to all.
  *
  * Both the referee and players consult this to determine which

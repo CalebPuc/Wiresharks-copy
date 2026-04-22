@@ -9,7 +9,7 @@ import java.util.List;
 /*
  * The referee's complete private knowledge about a running game.
  *
- * Never shared directly with players -- the referee derives a
+ * Never shared directly with players: the referee derives a
  * TurnState from it containing only what the active player is
  * allowed to know.
  *
@@ -61,14 +61,14 @@ public class GameState {
     }
  
     // GameState -> List<PlayerState>
-    // returns all players in turn order -- first player is the active one
+    // returns all players in turn order: first player is the active one
     // may be empty if all players have been eliminated
     public List<PlayerState> getPlayers() {
         return players;
     }
  
     // GameState -> PlayerState
-    // returns the active player -- the first in turn order
+    // returns the active player: the first in turn order
     // throws IllegalStateException if there are no players left
     // the referee should check isGameOver() before calling this
     public PlayerState getActivePlayer() {
@@ -102,7 +102,7 @@ public class GameState {
     }
  
     // GameState -> TurnState
-    // returns the TurnState for the active player -- only what they
+    // returns the TurnState for the active player: only what they
     // are allowed to know: bank, visible cards, their own state,
     // and the scores (not wallets) of remaining players
     // throws IllegalStateException if there are no players

@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
  
 /*
- * The player mechanism -- wraps a strategy and handles the protocol
+ * The player mechanism: wraps a strategy and handles the protocol
  * the referee uses to interact with a player.
  *
  * A mechanism has a name and a strategy. The referee calls it twice
  * per turn: once to get exchanges or a pebble request, and once to
  * get a list of cards to purchase.
  *
- * The mechanics are abstracted over a strategy -- the mechanism does
+ * The mechanics are abstracted over a strategy: the mechanism does
  * not know or care which strategy it holds, just that it implements
  * the Strategy interface.
  *
@@ -44,7 +44,7 @@ public class Mechanism {
     // asks the strategy what to do this turn and returns its decision
     // the referee uses this to get the exchange sequence and card purchases
     //
-    // the mechanism delegates entirely to the strategy -- it does not
+    // the mechanism delegates entirely to the strategy: it does not
     // second-guess or validate the strategy's output here; that is the
     // referee's job via RuleBook
     public TurnDecision takeTurn(TurnState turn, Equations equations) {
@@ -78,7 +78,7 @@ public class Mechanism {
     // exchanges have been applied
     //
     // re-runs the strategy with the updated turn state to get
-    // the card purchase sequence -- the strategy recomputes from
+    // the card purchase sequence: the strategy recomputes from
     // scratch since TurnState is immutable and reflects current state
     public List<Card> requestPurchases(TurnState turn, Equations equations) {
         TurnDecision decision = strategy.takeTurn(turn, equations);
@@ -93,7 +93,7 @@ public class Mechanism {
  
     // List<ExchangeStep> -> List<Pebbles[]>
     // converts the strategy's exchange steps to the [given, received]
-    // format used by RuleBook -- kept private since it is just a format
+    // format used by RuleBook: kept private since it is just a format
     // conversion between two internal representations
     private static List<Pebbles[]> convertExchanges(
             List<ExchangeStep> steps) {

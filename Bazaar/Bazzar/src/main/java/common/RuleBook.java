@@ -23,14 +23,6 @@ public class RuleBook {
     // Card int -> int
     // returns the points earned when purchasing the given card with
     // the given number of pebbles remaining in the wallet afterward
-    //
-    // scoring table from the spec:
-    //   pebbles left | plain | starred
-    //   3 or more    |   1   |    2
-    //   2            |   2   |    3
-    //   1            |   3   |    5
-    //   0            |   5   |    8
-    //
     // moved here from TurnDecision since scoring is a rule, not a
     // property of a decision
     public static int score(Card card, int pebblesRemaining) {
@@ -149,7 +141,6 @@ public class RuleBook {
     // picks a pebble from the bank deterministically
     // iterates RED WHITE BLUE GREEN YELLOW and picks the first available
     // throws IllegalArgumentException if the bank is empty
-    // added for M6 testing per the spec
     public static Pebble pickPebble(Pebbles bank) {
         for (Pebble p : Pebble.values()) {
             if (bank.countOf(p) > 0) {

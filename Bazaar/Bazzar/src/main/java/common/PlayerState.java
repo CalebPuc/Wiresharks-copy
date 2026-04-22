@@ -41,14 +41,16 @@ public class PlayerState {
  
     // PlayerState Pebbles -> PlayerState
     // returns a new PlayerState with the given wallet, same score
-    // does NOT modify this -- used when the referee updates a player's pebbles
+    // does NOT modify this 
+    // used when the referee updates a player's pebbles
     public PlayerState withWallet(Pebbles newWallet) {
         return new PlayerState(newWallet, this.score);
     }
  
     // PlayerState int -> PlayerState
     // returns a new PlayerState with points added to the score, same wallet
-    // does NOT modify this -- used when the referee awards points
+    // does NOT modify this 
+    // used when the referee awards points
     public PlayerState withAddedScore(int points) {
         return new PlayerState(this.wallet, this.score + points);
     }
@@ -61,7 +63,7 @@ public class PlayerState {
     }
  
     // PlayerState Object -> boolean
-    // true if this and 'that' have the same wallet and score
+    // true if this and that state have the same wallet and score
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -66,7 +66,7 @@ public class Card {
     }
  
     // Card Object -> boolean
-    // true if this and 'that' have the same pebbles and star status
+    // true if this card and that card have the same pebbles and star status
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

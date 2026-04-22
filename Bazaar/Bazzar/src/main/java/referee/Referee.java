@@ -11,10 +11,10 @@ import java.util.List;
  *
  * Runs a complete game by granting players turns one at a time
  * until a terminal state is reached. Eliminates any player that
- * misbehaves -- illegal response, exception, or null return.
+ * misbehaves: illegal response, exception, or null return.
  *
  * The active player is always index 0 in both the GameState player
- * list and the parallel mechanisms list. They are kept in sync --
+ * list and the parallel mechanisms list. They are kept in sync:
  * whenever a player is removed from one, it is removed from the other.
  *
  * Misbehavior handled here (logical level):
@@ -66,7 +66,7 @@ public class Referee {
         List<String>    misbehaved = new ArrayList<>();
         GameState       state      = initial;
  
-        // stalemate detection -- if nothing changes for a full round, stop
+        // stalemate detection: if nothing changes for a full round, stop
         int stalemateTurns    = 0;
         int maxStalemateTurns = mechs.size() * 2 + 1;
  
@@ -83,12 +83,12 @@ public class Referee {
             GameState before   = state;
             boolean eliminated = false;
  
-            // exchanges applied in first action -- threaded to second action
+            // exchanges applied in first action: threaded to second action
             // so isLegalPurchaseRequest receives [preTurn + appliedExchanges]
             // rather than the already-updated post-exchange turn state
             List<Pebbles[]> appliedExchanges = new ArrayList<>();
  
-            // first action -- exchange or pebble request
+            // first action: exchange or pebble request
             try {
                 if (active.wantsPebble(turn, equations)) {
                     if (!RuleBook.isLegalPebbleRequest(turn, equations)) {
@@ -126,7 +126,7 @@ public class Referee {
                 continue;
             }
  
-            // second action -- card purchases
+            // second action: card purchases
             // use preTurn (pre-exchange wallet) + appliedExchanges so that
             // isLegalPurchaseRequest can compute the correct post-exchange
             // wallet without double-applying exchanges
@@ -174,7 +174,7 @@ public class Referee {
     }
  
     // Referee GameState List<Pebbles[]> -> GameState
-    // applies a legal exchange sequence -- updates wallet and bank
+    // applies a legal exchange sequence: updates wallet and bank
     private GameState applyExchanges(GameState state,
                                       List<Pebbles[]> exchanges) {
         Pebbles wallet = state.getActivePlayer().getWallet();
@@ -190,7 +190,7 @@ public class Referee {
     }
  
     // Referee GameState List<Card> -> GameState
-    // applies a legal card purchase sequence -- removes cards, awards points,
+    // applies a legal card purchase sequence: removes cards, awards points,
     // replaces from deck if possible
     private GameState applyPurchases(GameState state, List<Card> purchases) {
         if (purchases.isEmpty()) return state;

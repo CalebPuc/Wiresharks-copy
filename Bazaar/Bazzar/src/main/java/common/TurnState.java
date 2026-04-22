@@ -6,7 +6,7 @@ import java.util.List;
  
 /*
  * The information the referee shares with the active player at
- * the start of their turn -- only what the player is allowed to know.
+ * the start of their turn: only what the player is allowed to know.
  *
  * Does NOT include other players' wallets, only their scores.
  * Does NOT include the face-down deck.

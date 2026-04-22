@@ -22,7 +22,7 @@ public class PurchasePointsStrategy implements Strategy {
     // TurnState Equations -> TurnDecision
     // returns the exchanges and purchases that maximize points this turn
     // ties broken by: fewest exchanges, smallest card sequence,
-    // smallest exchange sequence (per spec)
+    // smallest exchange sequence
     @Override
     public TurnDecision takeTurn(TurnState turn, Equations equations) {
         Pebbles wallet = turn.getActive().getWallet();
