@@ -28,7 +28,6 @@ public class TurnState {
     // Pebbles Cards PlayerState List<Integer> -> TurnState
     // creates a TurnState with the given bank, visible cards,
     // active player state, and remaining player scores
-    // throws IllegalArgumentException if any argument is null
     public TurnState(Pebbles bank,
                      Cards visibles,
                      PlayerState active,
@@ -77,7 +76,7 @@ public class TurnState {
     }
  
     // TurnState Object -> boolean
-    // true if this and 'that' have the same bank, cards, active player, and scores
+    // true if this state and that state have the same bank, cards, active player, and scores
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

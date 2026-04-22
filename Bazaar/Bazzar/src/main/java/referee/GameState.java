@@ -32,7 +32,6 @@ public class GameState {
     // Pebbles Cards Cards List<PlayerState> -> GameState
     // creates a GameState with the given fields
     // players may be empty -- that just means the game is already over
-    // throws IllegalArgumentException if any argument is null
     public GameState(Pebbles bank,
                      Cards visibles,
                      Cards deck,
