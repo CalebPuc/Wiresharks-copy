@@ -163,27 +163,6 @@ public class GameState {
         return new GameState(bank, newVisibles, newDeck, players);
     }
  
-    // GameState -> String
-    // text representation of the full game state for logging
-    public String render() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Game State ===\n");
-        sb.append("Bank:      ").append(bank.toString()).append("\n");
-        sb.append("Visibles:  ").append(visibles.render());
-        sb.append("Deck size: ").append(deck.size()).append(" cards\n");
-        if (players.isEmpty()) {
-            sb.append("Players:   (none)\n");
-        } else {
-            sb.append("Players:\n");
-            for (int i = 0; i < players.size(); i++) {
-                String label = (i == 0) ? " (active)" : "";
-                sb.append(String.format("  %d%s: %s%n",
-                    i + 1, label, players.get(i).render()));
-            }
-        }
-        return sb.toString();
-    }
- 
     // GameState Object -> boolean
     // true if this and 'that' have the same bank, cards, deck, and players
     @Override
@@ -207,10 +186,27 @@ public class GameState {
         result = 31 * result + players.hashCode();
         return result;
     }
- 
+
+    // GameState -> String
+    // text representation of the full game state for logging
     @Override
     public String toString() {
-        return render();
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Game State ===\n");
+        sb.append("Bank:      ").append(bank.toString()).append("\n");
+        sb.append("Visibles:  ").append(visibles.render());
+        sb.append("Deck size: ").append(deck.size()).append(" cards\n");
+        if (players.isEmpty()) {
+            sb.append("Players:   (none)\n");
+        } else {
+            sb.append("Players:\n");
+            for (int i = 0; i < players.size(); i++) {
+                String label = (i == 0) ? " (active)" : "";
+                sb.append(String.format("  %d%s: %s%n",
+                    i + 1, label, players.get(i).render()));
+            }
+        }
+        return sb.toString();
     }
  
     // true if any player can buy at least one visible card

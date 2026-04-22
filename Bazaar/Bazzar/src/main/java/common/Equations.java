@@ -62,17 +62,6 @@ public class Equations {
         return new Equations(applicable);
     }
  
-    // Equations -> String
-    // text representation listing each equation numbered from 1
-    public String render() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Equations:\n");
-        for (int i = 0; i < equations.size(); i++) {
-            sb.append(String.format("  %2d.  %s%n", i + 1, equations.get(i).render()));
-        }
-        return sb.toString();
-    }
- 
     // Equations -> List<Equation>
     // returns a read-only view of the equations in this table
     public List<Equation> getEquations() {
@@ -109,9 +98,15 @@ public class Equations {
     }
  
     // Equations -> String
+    // text representation listing each equation numbered from 1
     @Override
     public String toString() {
-        return render();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Equations:\n");
+        for (int i = 0; i < equations.size(); i++) {
+            sb.append(String.format("  %2d.  %s%n", i + 1, equations.get(i).toStrng()));
+        }
+        return sb.toString();
     }
  
     // Random -> Equation

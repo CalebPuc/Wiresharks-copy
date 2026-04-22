@@ -63,18 +63,6 @@ public class TurnState {
         return scores;
     }
  
-    // TurnState -> String
-    // text representation showing the bank, cards, active player, and scores
-    public String render() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Turn State ===\n");
-        sb.append("Bank:    ").append(bank.toString()).append("\n");
-        sb.append("Cards:   ").append(visibles.render()).append("\n");
-        sb.append("Active:  ").append(active.render()).append("\n");
-        sb.append("Scores:  ").append(scores.toString()).append("\n");
-        return sb.toString();
-    }
- 
     // TurnState Object -> boolean
     // true if this state and that state have the same bank, cards, active player, and scores
     @Override
@@ -100,8 +88,15 @@ public class TurnState {
     }
  
     // TurnState -> String
+    // text representation showing the bank, cards, active player, and scores
     @Override
     public String toString() {
-        return render();
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Turn State ===\n");
+        sb.append("Bank:    ").append(bank.toString()).append("\n");
+        sb.append("Cards:   ").append(visibles.toString()).append("\n");
+        sb.append("Active:  ").append(active.toString()).append("\n");
+        sb.append("Scores:  ").append(scores.toString()).append("\n");
+        return sb.toString();
     }
 }

@@ -37,22 +37,6 @@ public class Card {
         return wallet.hasAtLeast(pebbles);
     }
  
-    // Card -> String
-    // text representation showing this card's pebbles and star status
-    // example: "[ R W B G Y ]  *" for a starred card
-    public String render() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (Pebble p : pebbles.toList()) {
-            sb.append(" ").append(p.abbreviation());
-        }
-        sb.append(" ]");
-        if (hasStar) {
-            sb.append("  *");
-        }
-        return sb.toString();
-    }
- 
     // Card -> Pebbles
     // returns the pebbles displayed on this card
     public Pebbles getPebbles() {
@@ -84,8 +68,19 @@ public class Card {
     }
  
     // Card -> String
+    // text representation showing this card's pebbles and star status
+    // example: "[ R W B G Y ]  *" for a starred card
     @Override
     public String toString() {
-        return render();
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Pebble p : pebbles.toList()) {
+            sb.append(" ").append(p.abbreviation());
+        }
+        sb.append(" ]");
+        if (hasStar) {
+            sb.append("  *");
+        }
+        return sb.toString();
     }
 }

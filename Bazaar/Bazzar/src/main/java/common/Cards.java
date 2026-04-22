@@ -59,17 +59,6 @@ public class Cards {
         return false;
     }
  
-    // Cards -> String
-    // text representation listing each card numbered from 1
-    public String render() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Cards:\n");
-        for (int i = 0; i < cards.size(); i++) {
-            sb.append(String.format("  %2d.  %s%n", i + 1, cards.get(i).render()));
-        }
-        return sb.toString();
-    }
- 
     // Cards -> List<Card>
     // returns a read-only view of the cards in this collection
     public List<Card> getCards() {
@@ -130,8 +119,14 @@ public class Cards {
     }
  
     // Cards -> String
+    // text representation listing each card numbered from 1
     @Override
     public String toString() {
-        return render();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cards:\n");
+        for (int i = 0; i < cards.size(); i++) {
+            sb.append(String.format("  %2d.  %s%n", i + 1, cards.get(i).toString()));
+        }
+        return sb.toString();
     }
 }

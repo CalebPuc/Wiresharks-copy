@@ -67,12 +67,6 @@ public class Equation {
             || canApplyRightToLeft(wallet, bank);
     }
  
-    // Equation -> String
-    // text representation of this equation, e.g. "R W = B G"
-    public String render() {
-        return left.toString() + " = " + right.toString();
-    }
- 
     // Equation Object -> boolean
     // true if this and that equation represent the same trade
     // two equations are equal if their sides match in either orientation
@@ -98,7 +92,7 @@ public class Equation {
     // text representation of this equation
     @Override
     public String toString() {
-        return render();
+        return left.toString() + " = " + right.toString();
     }
  
     // String Pebbles -> void

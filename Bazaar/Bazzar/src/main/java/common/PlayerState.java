@@ -55,13 +55,6 @@ public class PlayerState {
         return new PlayerState(this.wallet, this.score + points);
     }
  
-    // PlayerState -> String
-    // text representation showing wallet and score
-    // example: "Wallet: R R B  Score: 3"
-    public String render() {
-        return "Wallet: " + wallet.toString() + "  Score: " + score;
-    }
- 
     // PlayerState Object -> boolean
     // true if this and that state have the same wallet and score
     @Override
@@ -81,8 +74,10 @@ public class PlayerState {
     }
  
     // PlayerState -> String
+    // text representation showing wallet and score
+    // example: "Wallet: R R B  Score: 3"
     @Override
     public String toString() {
-        return render();
+        return "Wallet: " + wallet.toString() + "  Score: " + score;
     }
 }
