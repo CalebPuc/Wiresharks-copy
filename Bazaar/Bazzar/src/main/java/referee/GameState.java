@@ -194,7 +194,7 @@ public class GameState {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Game State ===\n");
         sb.append("Bank:      ").append(bank.toString()).append("\n");
-        sb.append("Visibles:  ").append(visibles.render());
+        sb.append("Visibles:  ").append(visibles.toString());
         sb.append("Deck size: ").append(deck.size()).append(" cards\n");
         if (players.isEmpty()) {
             sb.append("Players:   (none)\n");
@@ -203,7 +203,7 @@ public class GameState {
             for (int i = 0; i < players.size(); i++) {
                 String label = (i == 0) ? " (active)" : "";
                 sb.append(String.format("  %d%s: %s%n",
-                    i + 1, label, players.get(i).render()));
+                    i + 1, label, players.get(i).toString()));
             }
         }
         return sb.toString();

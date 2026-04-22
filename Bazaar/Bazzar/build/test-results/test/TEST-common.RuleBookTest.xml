@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="common.RuleBookTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-04-22T00:13:16" hostname="MoreRemoteChaos" time="0.018">
+<testsuite name="common.RuleBookTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-04-22T02:25:02" hostname="MoreRemoteChaos" time="0.017">
   <properties/>
   <testcase name="purchasingCardNotInVisiblesIsIllegal()" classname="common.RuleBookTest" time="0.009"/>
-  <testcase name="emptyExchangeListIsLegal()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="emptyPurchaseListIsLegal()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="emptyExchangeListIsLegal()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="emptyPurchaseListIsLegal()" classname="common.RuleBookTest" time="0.0"/>
   <testcase name="starCardWith0PebblesGives8()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="purchasingUnaffordableCardIsIllegal()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="purchasingUnaffordableCardIsIllegal()" classname="common.RuleBookTest" time="0.0"/>
   <testcase name="purchasingAffordableVisibleCardIsLegal()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="pickPebbleThrowsOnEmptyBank()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="pickPebbleThrowsOnEmptyBank()" classname="common.RuleBookTest" time="0.0"/>
   <testcase name="exchangeWithMoreThanFourStepsIsIllegal()" classname="common.RuleBookTest" time="0.0"/>
   <testcase name="pickPebbleReturnsRedWhenAvailable()" classname="common.RuleBookTest" time="0.001"/>
   <testcase name="pebbleRequestIllegalWhenExchangesArePossible()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="plainCardWith3OrMorePebblesGives1()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="plainCardWith3OrMorePebblesGives1()" classname="common.RuleBookTest" time="0.0"/>
   <testcase name="pebbleRequestLegalWhenBankNonEmptyAndNoExchangesPossible()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="exchangeNotMatchingAnyEquationIsIllegal()" classname="common.RuleBookTest" time="0.001"/>
-  <testcase name="pebbleRequestIllegalWhenBankEmpty()" classname="common.RuleBookTest" time="0.0"/>
+  <testcase name="exchangeNotMatchingAnyEquationIsIllegal()" classname="common.RuleBookTest" time="0.0"/>
+  <testcase name="pebbleRequestIllegalWhenBankEmpty()" classname="common.RuleBookTest" time="0.001"/>
   <testcase name="validSingleExchangeIsLegal()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="exchangeWhenWalletLacksGivenPebblesIsIllegal()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="exchangeWhenWalletLacksGivenPebblesIsIllegal()" classname="common.RuleBookTest" time="0.0"/>
   <testcase name="pickPebbleSkipsUnavailableColors()" classname="common.RuleBookTest" time="0.0"/>
-  <testcase name="plainCardWith0PebblesGives5()" classname="common.RuleBookTest" time="0.001"/>
+  <testcase name="plainCardWith0PebblesGives5()" classname="common.RuleBookTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

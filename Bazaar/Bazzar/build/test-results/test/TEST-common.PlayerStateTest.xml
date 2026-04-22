@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="common.PlayerStateTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-04-22T00:13:16" hostname="MoreRemoteChaos" time="0.006">
+<testsuite name="common.PlayerStateTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-04-22T02:25:02" hostname="MoreRemoteChaos" time="0.006">
   <properties/>
   <testcase name="constructorRejectsNegativeScore()" classname="common.PlayerStateTest" time="0.0"/>
-  <testcase name="withWalletDoesNotModifyOriginal()" classname="common.PlayerStateTest" time="0.001"/>
+  <testcase name="withWalletDoesNotModifyOriginal()" classname="common.PlayerStateTest" time="0.0"/>
   <testcase name="withAddedScoreIncreasesScore()" classname="common.PlayerStateTest" time="0.0"/>
-  <testcase name="getWalletReturnsCorrectWallet()" classname="common.PlayerStateTest" time="0.0"/>
+  <testcase name="getWalletReturnsCorrectWallet()" classname="common.PlayerStateTest" time="0.001"/>
   <testcase name="withWalletPreservesScore()" classname="common.PlayerStateTest" time="0.0"/>
   <testcase name="constructorAcceptsZeroScore()" classname="common.PlayerStateTest" time="0.001"/>
   <testcase name="withWalletUpdatesWallet()" classname="common.PlayerStateTest" time="0.0"/>
@@ -13,7 +13,7 @@
   <testcase name="withAddedScoreDoesNotModifyOriginal()" classname="common.PlayerStateTest" time="0.001"/>
   <testcase name="differentScoresNotEqual()" classname="common.PlayerStateTest" time="0.0"/>
   <testcase name="getScoreReturnsCorrectScore()" classname="common.PlayerStateTest" time="0.0"/>
-  <testcase name="equalStatesAreEqual()" classname="common.PlayerStateTest" time="0.0"/>
+  <testcase name="equalStatesAreEqual()" classname="common.PlayerStateTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

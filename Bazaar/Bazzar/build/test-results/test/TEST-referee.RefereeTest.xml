@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="referee.RefereeTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-04-22T00:13:16" hostname="MoreRemoteChaos" time="0.026">
+<testsuite name="referee.RefereeTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-04-22T02:25:02" hostname="MoreRemoteChaos" time="0.024">
   <properties/>
-  <testcase name="winnerNameMatchesMechanism()" classname="referee.RefereeTest" time="0.018"/>
-  <testcase name="gameWithOnePlayerProducesWinner()" classname="referee.RefereeTest" time="0.0"/>
+  <testcase name="winnerNameMatchesMechanism()" classname="referee.RefereeTest" time="0.016"/>
+  <testcase name="gameWithOnePlayerProducesWinner()" classname="referee.RefereeTest" time="0.001"/>
   <testcase name="noMisbehavedPlayersInNormalGame()" classname="referee.RefereeTest" time="0.0"/>
-  <testcase name="gameResultWinnersIsNonNull()" classname="referee.RefereeTest" time="0.001"/>
-  <testcase name="throwingPlayerIsEliminated()" classname="referee.RefereeTest" time="0.002"/>
+  <testcase name="gameResultWinnersIsNonNull()" classname="referee.RefereeTest" time="0.0"/>
+  <testcase name="throwingPlayerIsEliminated()" classname="referee.RefereeTest" time="0.003"/>
   <testcase name="allMisbehavingPlayersProducesNoWinners()" classname="referee.RefereeTest" time="0.0"/>
-  <testcase name="gameResultMisbehavedIsNonNull()" classname="referee.RefereeTest" time="0.0"/>
-  <testcase name="twoPlayerGameProducesAtLeastOneWinner()" classname="referee.RefereeTest" time="0.001"/>
-  <testcase name="gameontinuesAfterBadPlayerEliminated()" classname="referee.RefereeTest" time="0.002"/>
+  <testcase name="gameResultMisbehavedIsNonNull()" classname="referee.RefereeTest" time="0.001"/>
+  <testcase name="twoPlayerGameProducesAtLeastOneWinner()" classname="referee.RefereeTest" time="0.0"/>
+  <testcase name="gameontinuesAfterBadPlayerEliminated()" classname="referee.RefereeTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

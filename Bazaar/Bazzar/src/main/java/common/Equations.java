@@ -104,7 +104,7 @@ public class Equations {
         StringBuilder sb = new StringBuilder();
         sb.append("Equations:\n");
         for (int i = 0; i < equations.size(); i++) {
-            sb.append(String.format("  %2d.  %s%n", i + 1, equations.get(i).toStrng()));
+            sb.append(String.format("  %2d.  %s%n", i + 1, equations.get(i).toString()));
         }
         return sb.toString();
     }

@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="referee.GameStateTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-04-22T00:13:16" hostname="MoreRemoteChaos" time="0.012">
+<testsuite name="referee.GameStateTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-04-22T02:25:02" hostname="MoreRemoteChaos" time="0.01">
   <properties/>
-  <testcase name="withUpdatedActivePlayerDoesNotModifyOriginal()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withActivePlayerRemovedRemovesFirstPlayer()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="withUpdatedActivePlayerDoesNotModifyOriginal()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="withActivePlayerRemovedRemovesFirstPlayer()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="toTurnStateBankMatchesGameBank()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withUpdatedActivePlayerPreservesOtherPlayers()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="withUpdatedActivePlayerPreservesOtherPlayers()" classname="referee.GameStateTest" time="0.001"/>
   <testcase name="withUpdatedActivePlayerReplacesFirstPlayer()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="isGameOverTrueWhenNoCardsRemain()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="isGameOverFalseForActiveGame()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="isGameOverTrueWhenNoCardsRemain()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="isGameOverFalseForActiveGame()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="equalGameStatesAreEqual()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="isGameOverTrueWhenBankEmptyAndNoOneCanBuy()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="isGameOverTrueWhenBankEmptyAndNoOneCanBuy()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="withRotatedPlayersPreservesPlayerCount()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withActivePlayerRemovedDoesNotModifyOriginal()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withRotatedPlayersMakesSecondPlayerActive()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="withActivePlayerRemovedDoesNotModifyOriginal()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="withRotatedPlayersMakesSecondPlayerActive()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="isGameOverTrueWhenPlayerReaches20Points()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="toTurnStateScoresEmptyForSinglePlayer()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withActivePlayerRemovedReturnsEmptyStateForLastPlayer()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="withActivePlayerRemovedReturnsEmptyStateForLastPlayer()" classname="referee.GameStateTest" time="0.001"/>
   <testcase name="withRotatedPlayersSendsFirstPlayerToBack()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withBankUpdatesBank()" classname="referee.GameStateTest" time="0.001"/>
-  <testcase name="toTurnStateThrowsWhenNoPlayers()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="constructorAcceptsValidState()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="withBankUpdatesBank()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="toTurnStateThrowsWhenNoPlayers()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="constructorAcceptsValidState()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="constructorAcceptsEmptyPlayerList()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="equalGameStatesHaveSameHashCode()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="equalGameStatesHaveSameHashCode()" classname="referee.GameStateTest" time="0.001"/>
   <testcase name="withUpdatedCardsChangesVisibles()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="getActivePlayerThrowsWhenNoPlayers()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="getActivePlayerReturnsFirstPlayer()" classname="referee.GameStateTest" time="0.0"/>
   <testcase name="isGameOverTrueWhenPlayerListEmpty()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="withActivePlayerRemovedReducesPlayerCount()" classname="referee.GameStateTest" time="0.001"/>
-  <testcase name="withUpdatedCardsChangesDeck()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="withActivePlayerRemovedReducesPlayerCount()" classname="referee.GameStateTest" time="0.0"/>
+  <testcase name="withUpdatedCardsChangesDeck()" classname="referee.GameStateTest" time="0.001"/>
   <testcase name="constructorMakesDefensiveCopyOfPlayers()" classname="referee.GameStateTest" time="0.0"/>
-  <testcase name="toTurnStateScoresExcludesActivePlayer()" classname="referee.GameStateTest" time="0.001"/>
+  <testcase name="toTurnStateScoresExcludesActivePlayer()" classname="referee.GameStateTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
