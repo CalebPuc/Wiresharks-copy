@@ -179,7 +179,7 @@ public class PurchasePointsStrategy implements Strategy {
  
     // Pebbles -> String
     // returns a sorted string of pebble abbreviations
-    // e.g. {RED:2, BLUE:1} -> "BRR"
+    // e.g. {RED:2, BLUE:1} -> "RRB"
     private String toSortedString(Pebbles pebbles) {
         List<String> chars = new ArrayList<>();
         for (Pebble p : pebbles.toList()) {

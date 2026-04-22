@@ -26,7 +26,7 @@ public class ExchangeStep {
         if (equation == null) {
             throw new IllegalArgumentException("Equation must not be null.");
         }
-        this.equation    = equation;
+        this.equation = equation;
         this.leftToRight = leftToRight;
     }
  
@@ -55,7 +55,7 @@ public class ExchangeStep {
     }
  
     // ExchangeStep Object -> boolean
-    // true if this and 'that' use the same equation and direction
+    // true if this step and that step use the same equation and direction
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
