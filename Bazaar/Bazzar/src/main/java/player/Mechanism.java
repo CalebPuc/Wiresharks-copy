@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Mechanism {
  
-    private final String   name;
+    private final String name;
     private final Strategy strategy;
  
     // String Strategy -> Mechanism
@@ -63,10 +63,9 @@ public class Mechanism {
  
     // Mechanism TurnState Equations -> List<Pebbles[]>
     // returns the exchange sequence this player wants to perform
-    // as a list of [given, received] pairs
-    //
-    // extracts the exchange steps from the strategy's TurnDecision
-    // and converts them to the Pebbles[] format RuleBook expects
+    // as a list of [given, received] pairs amd extracts the exchange 
+    // steps from the strategy's TurnDecision and converts them to 
+    // the Pebbles[] format RuleBook expects
     public List<Pebbles[]> requestExchanges(TurnState turn,
                                              Equations equations) {
         TurnDecision decision = strategy.takeTurn(turn, equations);

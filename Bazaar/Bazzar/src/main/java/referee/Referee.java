@@ -22,11 +22,6 @@ import java.util.List;
  *   - illegal pebble request
  *   - illegal card purchase
  *   - any exception thrown by the mechanism
- *
- * NOT handled here (deferred to remote communication layer):
- *   - timeouts
- *   - malformed JSON
- *   - network failures
  */
 public class Referee {
  

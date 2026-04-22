@@ -64,7 +64,7 @@ public class TurnState {
     }
  
     // TurnState Object -> boolean
-    // true if this state and that state have the same bank, cards, active player, and scores
+    // true if both states have the same bank, cards, active player, and scores
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

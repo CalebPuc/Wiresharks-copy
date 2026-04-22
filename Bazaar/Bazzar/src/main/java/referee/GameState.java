@@ -31,7 +31,7 @@ public class GameState {
  
     // Pebbles Cards Cards List<PlayerState> -> GameState
     // creates a GameState with the given fields
-    // players may be empty -- that just means the game is already over
+    // players may be empty, but that just means the game is already over
     public GameState(Pebbles bank,
                      Cards visibles,
                      Cards deck,

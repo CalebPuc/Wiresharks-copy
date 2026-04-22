@@ -11,11 +11,11 @@ import java.util.List;
  * common so neither package has to import from the other.
  *
  * An exchange step is represented here as a pair of Pebbles:
- *   [given, received] -- what the player gives to the bank and
+ *   [given, received] - what the player gives to the bank and
  *   what the player receives from the bank.
  *
  * Data representation:
- *   RuleBook is stateless -- all methods take the game state they
+ *   RuleBook is stateless - all methods take the game state they
  *   need as arguments. There is nothing to store.
  */
 public class RuleBook {

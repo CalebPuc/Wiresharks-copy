@@ -56,7 +56,7 @@ public class PlayerState {
     }
  
     // PlayerState Object -> boolean
-    // true if this and that state have the same wallet and score
+    // true if both states have the same wallet and score
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
