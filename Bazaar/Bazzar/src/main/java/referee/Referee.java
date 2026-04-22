@@ -61,29 +61,32 @@ public class Referee {
     // Referee List<Mechanism> GameState -> GameResult
     // runs a game to completion starting from the given state
     // mechanisms must be in the same order as the players in state
-    //
-    // uses a stalemate counter to break infinite loops -- if a full
-    // round of turns passes with no state change, the game ends
     public GameResult runGame(List<Mechanism> players, GameState initial) {
         List<Mechanism> mechs      = new ArrayList<>(players);
         List<String>    misbehaved = new ArrayList<>();
         GameState       state      = initial;
  
-        // stalemate detection -- count consecutive turns with no progress
-        int stalemateTurns = 0;
+        // stalemate detection -- if nothing changes for a full round, stop
+        int stalemateTurns    = 0;
         int maxStalemateTurns = mechs.size() * 2 + 1;
  
         while (!state.isGameOver() && !mechs.isEmpty()) {
  
-            // safety valve -- if nothing has changed for a full round, stop
             if (stalemateTurns > maxStalemateTurns) {
                 break;
             }
  
-            Mechanism active  = mechs.get(0);
-            TurnState turn    = state.toTurnState();
-            GameState before  = state;
+            Mechanism active   = mechs.get(0);
+            TurnState turn     = state.toTurnState();
+            TurnState preTurn  = turn;  // kept so isLegalPurchaseRequest
+                                        // gets the pre-exchange wallet
+            GameState before   = state;
             boolean eliminated = false;
+ 
+            // exchanges applied in first action -- threaded to second action
+            // so isLegalPurchaseRequest receives [preTurn + appliedExchanges]
+            // rather than the already-updated post-exchange turn state
+            List<Pebbles[]> appliedExchanges = new ArrayList<>();
  
             // first action -- exchange or pebble request
             try {
@@ -95,6 +98,7 @@ public class Referee {
                         eliminated = true;
                     } else {
                         state = applyPebbleDraw(state);
+                        // appliedExchanges stays empty for a pebble draw
                     }
                 } else {
                     List<Pebbles[]> exchanges =
@@ -106,6 +110,7 @@ public class Referee {
                         mechs.remove(0);
                         eliminated = true;
                     } else {
+                        appliedExchanges = exchanges;
                         state = applyExchanges(state, exchanges);
                     }
                 }
@@ -122,24 +127,23 @@ public class Referee {
             }
  
             // second action -- card purchases
-            turn = state.toTurnState();
-            List<Pebbles[]> noExchanges = new ArrayList<>();
- 
+            // use preTurn (pre-exchange wallet) + appliedExchanges so that
+            // isLegalPurchaseRequest can compute the correct post-exchange
+            // wallet without double-applying exchanges
             try {
-                List<Card> purchases = active.requestPurchases(turn, equations);
+                List<Card> purchases = active.requestPurchases(
+                    state.toTurnState(), equations);
                 if (!RuleBook.isLegalPurchaseRequest(
-                        turn, purchases, noExchanges)) {
+                        preTurn, purchases, appliedExchanges)) {
                     misbehaved.add(active.name());
                     state = state.withActivePlayerRemoved();
                     mechs.remove(0);
                     stalemateTurns = 0;
                 } else {
                     state = applyPurchases(state, purchases);
-                    // rotate to next player
                     state = state.withRotatedPlayers();
                     mechs.add(mechs.remove(0));
  
-                    // check for stalemate -- did anything actually change?
                     if (state.equals(before.withRotatedPlayers())) {
                         stalemateTurns++;
                     } else {
@@ -186,8 +190,8 @@ public class Referee {
     }
  
     // Referee GameState List<Card> -> GameState
-    // applies a legal card purchase sequence
-    // removes cards from visibles, awards points, replaces from deck
+    // applies a legal card purchase sequence -- removes cards, awards points,
+    // replaces from deck if possible
     private GameState applyPurchases(GameState state, List<Card> purchases) {
         if (purchases.isEmpty()) return state;
  

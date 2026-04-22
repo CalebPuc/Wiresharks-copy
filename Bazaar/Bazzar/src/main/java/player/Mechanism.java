@@ -55,7 +55,7 @@ public class Mechanism {
     // true if this player should request a pebble from the bank
     // instead of performing exchanges
     //
-    // per the spec: a player requests a pebble only if no exchanges
+    // per the instructions: a player requests a pebble only if no exchanges
     // are possible AND the bank is non-empty
     public boolean wantsPebble(TurnState turn, Equations equations) {
         return RuleBook.isLegalPebbleRequest(turn, equations);
